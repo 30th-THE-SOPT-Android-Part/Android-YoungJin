@@ -21,6 +21,10 @@
         <activity
             android:name=".presentation.sign.screens.SignUpActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".presentation.home.HomeActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -17,4 +17,17 @@
     <string name="sign_in_toast_text">안녕하세요 %s님!</string>
     <string name="sign_up_guide">솝트가 처음이신가요? <u><b><font color="#171717">회원가입</font></b></u></string>
 
+    <!-- Home -->
+    <string name="info">정보</string>
+    <string name="age">Age&#160;&#160;&#160;&#160;<b>24</b></string>
+    <string name="mbti">MBTI&#160;&#160;&#160;&#160;<b>ISFP</b></string>
+    <string name="part">Part&#160;&#160;&#160;&#160;<b>Android</b></string>
+
+    <string name="education">학력</string>
+    <string name="major">성신여대&#160;&#160;&#160;&#160;<b>컴퓨터공학과</b></string>
+
+    <string name="web_site">웹사이트</string>
+    <string name="github"><a href="https://github.com/youngjinc"><font color="#474747"><b><u>GitHub</u></b></font></a></string>
+    <string name="blog"><a href="https://velog.io/@zini"><font color="#474747"><b><u>Blog</u></b></font></a></string>
+
 </resources>

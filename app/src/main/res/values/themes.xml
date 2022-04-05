@@ -74,4 +74,27 @@
         <item name="android:textColor">@color/gray_500</item>
         <item name="android:fontFamily">@font/suit_sb</item>
     </style>
+
+    <style name="Widget.Title.TextAppearance" parent="">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:fontFamily">@font/suit_sb</item>
+    </style>
+
+    <style name="Widget.Description.Style" parent="">
+        <item name="android:layout_marginTop">@dimen/spacing20</item>
+        <item name="android:textAppearance">@style/Widget.Description.TextAppearance</item>
+    </style>
+
+    <style name="Widget.Description.TextAppearance" parent="">
+        <item name="android:textSize">@dimen/typographyDescription</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:fontFamily">@font/suit_r</item>
+    </style>
+
+    <style name="Widget.Divider.Style" parent="">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray_200</item>
+        <item name="android:layout_marginTop">@dimen/spacing10</item>
+    </style>
 </resources>
