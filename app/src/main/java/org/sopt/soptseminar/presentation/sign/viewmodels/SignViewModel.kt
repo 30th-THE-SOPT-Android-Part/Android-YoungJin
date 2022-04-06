@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.sopt.soptseminar.models.SignInfo
 import org.sopt.soptseminar.models.UserInfo
 import javax.inject.Inject
 
@@ -13,16 +14,18 @@ class SignViewModel @Inject constructor() : ViewModel() {
     private val userId = MutableLiveData<String>()
     private val userPassword = MutableLiveData<String>()
     private val isValidSignInput = MutableLiveData<Boolean>()
-    private var userInfo: UserInfo? = null
+    private var userInfo: UserInfo = UserInfo(name = "", age = 24, mbti ="ISFP", university = "성신여대", major = "컴퓨터공학과", email = "cyjin6789@gmail.com")
+    private var signInfo: SignInfo? = null
 
     fun signIn() {
         val isValid = !(userId.value.isNullOrEmpty() || userPassword.value.isNullOrEmpty())
         if (isValid) {
-            userInfo = UserInfo(
+            signInfo = SignInfo(
                 id = userId.value!!,
-                name = userName.value ?: "최영진",
                 password = userPassword.value!!
             )
+            userInfo.name =  userName.value ?: "최영진"
+
             // TODO Implement the signin process
         }
 
@@ -32,11 +35,12 @@ class SignViewModel @Inject constructor() : ViewModel() {
     fun signUp() {
         val isValid = !(userId.value.isNullOrEmpty() || userName.value.isNullOrEmpty() || userPassword.value.isNullOrEmpty())
         if (isValid) {
-            userInfo = UserInfo(
+            signInfo = SignInfo(
                 id = userId.value!!,
-                name = userName.value!!,
                 password = userPassword.value!!
             )
+            userInfo.name =  userName.value!!
+
             // TODO Implement the signin process
         }
 
@@ -57,15 +61,19 @@ class SignViewModel @Inject constructor() : ViewModel() {
 
     fun setUserInfo(userInfo: UserInfo) {
         this.userInfo = userInfo
-
         userName.value = userInfo.name
-        userId.value = userInfo.id
-        userPassword.value = userInfo.password
+    }
+
+    fun setSignInfo(signInfo: SignInfo) {
+        this.signInfo = signInfo
+        userId.value = signInfo.id
+        userPassword.value = signInfo.password
     }
 
     fun getUserName(): LiveData<String> = userName
     fun getUserId(): LiveData<String> = userId
     fun getUserPassword(): LiveData<String> = userPassword
     fun getUserInfo(): UserInfo? = userInfo
+    fun getSignInfo(): SignInfo? = signInfo
     fun getValidSignInput(): LiveData<Boolean> = isValidSignInput
 }

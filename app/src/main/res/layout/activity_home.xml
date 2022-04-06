@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.home.HomeActivity">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.sopt.soptseminar.presentation.home.ProfileViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -70,12 +77,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacingBase"
                     android:fontFamily="@font/suit_b"
-                    android:text="최영진"
+                    android:text="@{viewModel.userInfo.name}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/typographyTitle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profile_img" />
+                    app:layout_constraintTop_toBottomOf="@id/profile_img"
+                    tools:text="최영진" />
 
                 <TextView
                     android:id="@+id/email"
@@ -83,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacingMicro"
                     android:fontFamily="@font/montserrat_r"
-                    android:text="cyjin6789@gmail.com"
+                    android:text="@{viewModel.userInfo.email}"
                     android:textColor="@color/gray_300"
                     android:textSize="@dimen/typographyDetail"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +100,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/info_section"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -103,35 +111,78 @@
                 app:layout_constraintTop_toBottomOf="@id/profile_container">
 
                 <TextView
+                    android:id="@+id/info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/info"
-                    android:textAppearance="@style/Widget.Title.TextAppearance" />
+                    android:textAppearance="@style/Widget.Title.TextAppearance"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
+                    android:id="@+id/info_divider"
                     style="@style/Widget.Divider.Style"
-                    android:layout_width="match_parent" />
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/info" />
 
                 <TextView
+                    android:id="@+id/age"
                     style="@style/Widget.Description.Style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/age" />
+                    android:text="@string/age"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/info_divider" />
 
                 <TextView
+                    android:id="@+id/user_age"
+                    style="@style/Widget.Description.Bold.Style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(viewModel.userInfo.age)}"
+                    app:layout_constraintStart_toEndOf="@id/age"
+                    app:layout_constraintTop_toTopOf="@id/age"
+                    tools:text="24" />
+
+                <TextView
+                    android:id="@+id/mbti"
                     style="@style/Widget.Description.Style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mbti" />
+                    android:text="@string/mbti"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/age" />
 
                 <TextView
+                    android:id="@+id/user_mbti"
+                    style="@style/Widget.Description.Bold.Style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.userInfo.mbti}"
+                    app:layout_constraintStart_toEndOf="@id/mbti"
+                    app:layout_constraintTop_toTopOf="@id/mbti"
+                    tools:text="ISFP" />
+
+                <TextView
+                    android:id="@+id/part"
                     style="@style/Widget.Description.Style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/part" />
-            </LinearLayout>
+                    android:text="@string/part"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mbti" />
 
-            <LinearLayout
+                <TextView
+                    style="@style/Widget.Description.Bold.Style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.userInfo.part == null ? `` : context.getString(viewModel.userInfo.part.strRes)}"
+                    app:layout_constraintStart_toEndOf="@id/part"
+                    app:layout_constraintTop_toTopOf="@id/part"
+                    tools:text="Android" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/education_section"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -142,23 +193,41 @@
                 app:layout_constraintTop_toBottomOf="@id/info_section">
 
                 <TextView
+                    android:id="@+id/education"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/education"
-                    android:textAppearance="@style/Widget.Title.TextAppearance" />
+                    android:textAppearance="@style/Widget.Title.TextAppearance"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
+                    android:id="@+id/education_divider"
                     style="@style/Widget.Divider.Style"
-                    android:layout_width="match_parent" />
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/education" />
 
                 <TextView
+                    android:id="@+id/university"
                     style="@style/Widget.Description.Style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/major" />
-            </LinearLayout>
+                    android:text="@{viewModel.userInfo.university}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/education_divider"
+                    tools:text="성신여대" />
 
-            <LinearLayout
+                <TextView
+                    style="@style/Widget.Description.Bold.Style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.userInfo.major}"
+                    app:layout_constraintStart_toEndOf="@id/university"
+                    app:layout_constraintTop_toTopOf="@id/university"
+                    tools:text="컴퓨터공학과" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/web_site_section"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -169,29 +238,39 @@
                 app:layout_constraintTop_toBottomOf="@id/education_section">
 
                 <TextView
+                    android:id="@+id/web_site"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/web_site"
-                    android:textAppearance="@style/Widget.Title.TextAppearance" />
+                    android:textAppearance="@style/Widget.Title.TextAppearance"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
+                    android:id="@+id/web_site_divider"
                     style="@style/Widget.Divider.Style"
-                    android:layout_width="match_parent" />
+                    android:layout_width="match_parent"
+                    app:layout_constraintStart_toStartOf="@id/web_site"
+                    app:layout_constraintTop_toBottomOf="@id/web_site" />
 
                 <TextView
                     android:id="@+id/github"
                     style="@style/Widget.Description.Style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/github" />
+                    android:text="@string/github"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/web_site_divider" />
 
                 <TextView
                     android:id="@+id/blog"
                     style="@style/Widget.Description.Style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/blog" />
-            </LinearLayout>
+                    android:text="@string/blog"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/github" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

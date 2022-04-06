@@ -46,11 +46,13 @@ class SignUpActivity : AppCompatActivity() {
     private fun moveToSignIn() {
         val intent = Intent(this, SignInActivity::class.java)
         intent.putExtra(ARG_USER_INFO, viewModel.getUserInfo())
+        intent.putExtra(ARG_SIGN_INFO, viewModel.getSignInfo())
         setResult(RESULT_OK, intent)
         finish()
     }
 
     companion object {
         const val ARG_USER_INFO = "userInfo"
+        const val ARG_SIGN_INFO = "signInfo"
     }
 }

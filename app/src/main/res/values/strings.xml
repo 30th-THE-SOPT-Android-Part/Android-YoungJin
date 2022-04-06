@@ -23,9 +23,9 @@
 
     <!-- Home -->
     <string name="info">정보</string>
-    <string name="age">Age&#160;&#160;&#160;&#160;<b>24</b></string>
-    <string name="mbti">MBTI&#160;&#160;&#160;&#160;<b>ISFP</b></string>
-    <string name="part">Part&#160;&#160;&#160;&#160;<b>Android</b></string>
+    <string name="age">Age</string>
+    <string name="mbti">MBTI</string>
+    <string name="part">Part</string>
 
     <string name="education">학력</string>
     <string name="major">성신여대&#160;&#160;&#160;&#160;<b>컴퓨터공학과</b></string>
@@ -33,5 +33,14 @@
     <string name="web_site">웹사이트</string>
     <string name="github"><a href="https://github.com/youngjinc"><font color="#474747"><b><u>GitHub</u></b></font></a></string>
     <string name="blog"><a href="https://velog.io/@zini"><font color="#474747"><b><u>Blog</u></b></font></a></string>
+
+
+    <!-- Part -->
+    <string name="part_aos">Android</string>
+    <string name="part_ios">IOS</string>
+    <string name="part_web">Web</string>
+    <string name="part_server">Server</string>
+    <string name="part_design">Design</string>
+    <string name="part_plan">Plan</string>
 
 </resources>

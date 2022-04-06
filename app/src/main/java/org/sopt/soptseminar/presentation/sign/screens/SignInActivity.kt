@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.databinding.ActivitySignInBinding
+import org.sopt.soptseminar.models.SignInfo
 import org.sopt.soptseminar.models.UserInfo
 import org.sopt.soptseminar.presentation.home.HomeActivity
 import org.sopt.soptseminar.presentation.sign.viewmodels.SignViewModel
@@ -63,8 +64,13 @@ class SignInActivity : AppCompatActivity() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
 
-                result.data?.getParcelableExtra<UserInfo>(ARG_USER_INFO)?.let { user ->
-                    viewModel.setUserInfo(user)
+                result.data?.run {
+                    getParcelableExtra<UserInfo>(ARG_USER_INFO)?.let { user ->
+                        viewModel.setUserInfo(user)
+                    }
+                    getParcelableExtra<SignInfo>(ARG_SIGN_INFO)?.let { sign ->
+                        viewModel.setSignInfo(sign)
+                    }
                 }
             }
     }
@@ -78,5 +84,6 @@ class SignInActivity : AppCompatActivity() {
 
     companion object {
         const val ARG_USER_INFO = "userInfo"
+        const val ARG_SIGN_INFO = "signInfo"
     }
 }

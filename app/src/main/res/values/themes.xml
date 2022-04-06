@@ -92,6 +92,12 @@
         <item name="android:fontFamily">@font/suit_r</item>
     </style>
 
+    <style name="Widget.Description.Bold.Style" parent="">
+        <item name="android:layout_marginStart">@dimen/spacing12</item>
+        <item name="android:textAppearance">@style/Widget.Description.TextAppearance</item>
+        <item name="android:fontFamily">@font/suit_sb</item>
+    </style>
+
     <style name="Widget.Divider.Style" parent="">
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/gray_200</item>
