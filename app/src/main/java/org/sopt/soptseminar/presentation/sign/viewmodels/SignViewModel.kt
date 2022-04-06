@@ -60,12 +60,10 @@ class SignViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setUserInfo(userInfo: UserInfo) {
-        this.userInfo = userInfo
         userName.value = userInfo.name
     }
 
     fun setSignInfo(signInfo: SignInfo) {
-        this.signInfo = signInfo
         userId.value = signInfo.id
         userPassword.value = signInfo.password
     }
