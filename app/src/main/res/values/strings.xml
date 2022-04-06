@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SoptSeminar</string>
     <string name="sopt">SOPT</string>
+    <string name="sopt_ko">솝트</string>
 
     <!-- Sign -->
     <string name="sign_in">로그인</string>
@@ -14,8 +15,11 @@
     <string name="id_hint">아이디를 입력해 주세요.</string>
     <string name="password_hint">비밀번호를 입력해 주세요.</string>
 
-    <string name="sign_in_toast_text">안녕하세요 %s님!</string>
     <string name="sign_up_guide">솝트가 처음이신가요? <u><b><font color="#171717">회원가입</font></b></u></string>
+
+    <string name="check_sign_in_input_toast_text">아이디 또는 비밀번호를 확인해 주세요</string>
+    <string name="sign_in_success_toast_text">안녕하세요 %s님👋</string>
+    <string name="sign_up_failure_toast_text">입력하신 정보를 다시 확인해 주세요</string>
 
     <!-- Home -->
     <string name="info">정보</string>

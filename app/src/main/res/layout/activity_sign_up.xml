@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.sign.screens.SignInActivity">
+    tools:context=".presentation.sign.screens.SignUpActivity">
 
     <data>
 
@@ -100,6 +100,7 @@
             android:layout_marginTop="@dimen/spacingSmall"
             android:hint="@string/id_hint"
             android:maxLines="1"
+            android:onTextChanged="@{viewModel::onUserIdTextChanged}"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintStart_toStartOf="@id/guide_start"
             app:layout_constraintTop_toBottomOf="@id/id_title" />
@@ -123,6 +124,7 @@
             android:hint="@string/password_hint"
             android:inputType="textPassword"
             android:maxLines="1"
+            android:onTextChanged="@{viewModel::onUserPasswordTextChanged}"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintStart_toStartOf="@id/guide_start"
             app:layout_constraintTop_toBottomOf="@id/password_title" />
@@ -133,6 +135,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacingBase"
+            android:onClick="@{() -> viewModel.signUp()}"
             android:text="@string/sign_up"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
