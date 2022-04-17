@@ -3,7 +3,6 @@ package org.sopt.soptseminar.presentation.sign.screens
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -16,6 +15,7 @@ import org.sopt.soptseminar.models.SignInfo
 import org.sopt.soptseminar.models.UserInfo
 import org.sopt.soptseminar.presentation.home.HomeActivity
 import org.sopt.soptseminar.presentation.sign.viewmodels.SignViewModel
+import org.sopt.soptseminar.util.extensions.showToast
 
 @AndroidEntryPoint
 class SignInActivity : AppCompatActivity() {
@@ -44,17 +44,10 @@ class SignInActivity : AppCompatActivity() {
         viewModel.getValidSignInput().observe(this) { isValid ->
             if (isValid) {
                 val name = viewModel.getUserInfo()?.name
-                Toast.makeText(
-                    this,
-                    String.format(getString(R.string.sign_in_success_toast_text), name),
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                showToast(String.format(getString(R.string.sign_in_success_toast_text), name))
                 moveToHome()
             } else {
-                Toast.makeText(
-                    this, getString(R.string.check_sign_in_input_toast_text), Toast.LENGTH_SHORT
-                ).show()
+                showToast(getString(R.string.check_sign_in_input_toast_text))
             }
         }
     }
@@ -63,14 +56,12 @@ class SignInActivity : AppCompatActivity() {
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
-
-                result.data?.run {
-                    getParcelableExtra<UserInfo>(ARG_USER_INFO)?.let { user ->
-                        viewModel.setUserInfo(user)
-                    }
-                    getParcelableExtra<SignInfo>(ARG_SIGN_INFO)?.let { sign ->
-                        viewModel.setSignInfo(sign)
-                    }
+                val data = result.data ?: return@registerForActivityResult
+                data.getParcelableExtra<UserInfo>(ARG_USER_INFO)?.let { user ->
+                    viewModel.setUserInfo(user)
+                }
+                data.getParcelableExtra<SignInfo>(ARG_SIGN_INFO)?.let { sign ->
+                    viewModel.setSignInfo(sign)
                 }
             }
     }

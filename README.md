@@ -37,7 +37,7 @@ SignInActivity|SignUpActivity|HomeActivity|
 `activity_sign_in.xml`
 
 1. **DataBinding**을 사용하여 입력값이 변경될 때마다 `viewModel::onUserIdTextChanged` 호출 ▶️ **MutableLiveData**타입 변수 `viewModel.userId` 에 입력값 저장
-activity에서 로그인 버튼 클릭 시 **binding.idInput.text**로 접근할 수 있지만 viewModel을 활용하기 위함 
+(activity에서 로그인 버튼 클릭 시 **binding.idInput.text**로 접근할 수 있지만 viewModel을 활용하기 위함) 
 
 ```xml
 <EditText...
@@ -123,8 +123,7 @@ private fun addObservers() {
     viewModel.getValidSignInput().observe(this) { isValid ->
         if (isValid) {
             val name = viewModel.getUserInfo()?.name
-            Toast.makeText(this, String.format(getString(R.string.sign_in_success_toast_text), name), Toast.LENGTH_SHORT).show()
-
+            showToast(String.format(getString(R.string.sign_in_success_toast_text), name))
             moveToHome()
         } else {
             // Toast 띄우기 코드 생략
@@ -167,13 +166,12 @@ private fun setSignUpResult() {
     resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
 
-        result.data?.run {
-            getParcelableExtra<UserInfo>(ARG_USER_INFO)?.let { user ->
-                viewModel.setUserInfo(user)
-            }
-            getParcelableExtra<SignInfo>(ARG_SIGN_INFO)?.let { sign ->
-                viewModel.setSignInfo(sign)
-            }
+        val data = result.data ?: return@registerForActivityResult
+        data.getParcelableExtra<UserInfo>(ARG_USER_INFO)?.let { user ->
+          viewModel.setUserInfo(user)
+        }
+        data.getParcelableExtra<SignInfo>(ARG_SIGN_INFO)?.let { sign ->
+          viewModel.setSignInfo(sign)
         }
     }
 }

@@ -12,10 +12,15 @@
         <entry key="app/src/main/res/drawable/shape_border_radius_40.xml" value="0.1175" />
         <entry key="app/src/main/res/drawable/shape_radius_32.xml" value="0.169" />
         <entry key="app/src/main/res/layout/activity_empty.xml" value="0.12563323201621074" />
+        <entry key="app/src/main/res/layout/activity_follower.xml" value="0.2341485507246377" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.18626244928418975" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25833333333333336" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_recyclerview.xml" value="0.1371182427890059" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.17348327636718752" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1531906127929688" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_follower.xml" value="0.2685254083163497" />
       </map>
     </option>
   </component>

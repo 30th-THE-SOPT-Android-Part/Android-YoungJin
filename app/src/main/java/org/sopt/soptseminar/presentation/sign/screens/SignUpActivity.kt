@@ -2,7 +2,6 @@ package org.sopt.soptseminar.presentation.sign.screens
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -10,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.databinding.ActivitySignUpBinding
 import org.sopt.soptseminar.presentation.sign.viewmodels.SignViewModel
+import org.sopt.soptseminar.util.extensions.showToast
 
 @AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
@@ -27,7 +27,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun addListeners() {
         binding.back.setOnClickListener {
-            finish()
+            super.onBackPressed()
         }
     }
 
@@ -36,9 +36,7 @@ class SignUpActivity : AppCompatActivity() {
             if (isValid) {
                 moveToSignIn()
             } else {
-                Toast.makeText(
-                    this, getString(R.string.sign_up_failure_toast_text), Toast.LENGTH_SHORT
-                ).show()
+                showToast(getString(R.string.sign_up_failure_toast_text))
             }
         }
     }

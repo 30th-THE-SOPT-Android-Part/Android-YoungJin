@@ -9,7 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.databinding.ActivityHomeBinding
 import org.sopt.soptseminar.models.UserInfo
-import org.sopt.soptseminar.presentation.sign.screens.SignInActivity
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -22,7 +21,7 @@ class HomeActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this@HomeActivity
 
-        intent.getParcelableExtra<UserInfo>(SignInActivity.ARG_USER_INFO)?.let { user ->
+        intent.getParcelableExtra<UserInfo>(ARG_USER_INFO)?.let { user ->
             viewModel.setUserInfo(user)
         }
 
