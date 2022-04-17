@@ -1,0 +1,106 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.SoptSeminar" parent="Theme.AppCompat.Light">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Widget.Button.Basic.Style" parent="">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="Widget.Button.Style" parent="">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:backgroundTint">@color/selector_button_color</item>
+        <item name="android:background">@drawable/shape_border_radius_10</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:layout_marginTop">@dimen/spacing10</item>
+        <item name="android:paddingVertical">@dimen/spacingBase</item>
+        <item name="android:textAppearance">@style/Widget.Button.TextAppearance</item>
+    </style>
+
+    <style name="Widget.Button.TextAppearance" parent="">
+        <item name="android:textSize">@dimen/spacingBase</item>
+        <item name="android:textColor">@color/selector_button_text_color</item>
+        <item name="android:fontFamily">@font/suit_sb</item>
+    </style>
+
+    <style name="Widget.Navigation.Button.Style" parent="Widget.Button.Basic.Style">
+        <item name="android:padding">@dimen/spacingBase</item>
+    </style>
+
+    <style name="Widget.EditText.Label.TextAppearance" parent="">
+        <item name="android:textSize">@dimen/typographyDescription</item>
+        <item name="android:textColor">@color/gray_400</item>
+        <item name="android:fontFamily">@font/suit_m</item>
+    </style>
+
+    <style name="Widget.EditText.Style" parent="">
+        <item name="android:background">@drawable/shape_border_radius_10</item>
+        <item name="android:backgroundTint">@color/gray_100</item>
+        <item name="android:paddingVertical">@dimen/spacingBase</item>
+        <item name="android:paddingHorizontal">@dimen/spacing12</item>
+        <item name="android:textColorHint">@color/gray_250</item>
+        <item name="android:textAppearance">@style/Widget.EditText.TextAppearance</item>
+    </style>
+
+    <style name="Widget.EditText.TextAppearance" parent="">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/gray_400</item>
+        <item name="android:fontFamily">@font/suit_m</item>
+    </style>
+
+    <style name="Widget.TabTitle.TextAppearance" parent="">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:fontFamily">@font/montserrat_b</item>
+    </style>
+
+    <style name="Widget.ToolbarTitle.TextAppearance" parent="">
+        <item name="android:textSize">@dimen/typographyBase</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:fontFamily">@font/suit_sb</item>
+    </style>
+
+    <style name="Widget.Title.TextAppearance" parent="">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:fontFamily">@font/suit_sb</item>
+    </style>
+
+    <style name="Widget.Description.Style" parent="">
+        <item name="android:layout_marginTop">@dimen/spacing20</item>
+        <item name="android:textAppearance">@style/Widget.Description.TextAppearance</item>
+    </style>
+
+    <style name="Widget.Description.TextAppearance" parent="">
+        <item name="android:textSize">@dimen/typographyDescription</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:fontFamily">@font/suit_r</item>
+    </style>
+
+    <style name="Widget.Description.Bold.Style" parent="">
+        <item name="android:layout_marginStart">@dimen/spacing12</item>
+        <item name="android:textAppearance">@style/Widget.Description.TextAppearance</item>
+        <item name="android:fontFamily">@font/suit_sb</item>
+    </style>
+
+    <style name="Widget.Divider.Style" parent="">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray_200</item>
+        <item name="android:layout_marginTop">@dimen/spacing10</item>
+    </style>
+</resources>

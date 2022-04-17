@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/backgound_button.xml" value="0.1895" />
+        <entry key="app/src/main/res/drawable/ic_back.xml" value="0.1175" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1175" />
+        <entry key="app/src/main/res/drawable/shape_border_radius_10.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/shape_border_radius_16.xml" value="0.1015" />
+        <entry key="app/src/main/res/drawable/shape_border_radius_32.xml" value="0.169" />
+        <entry key="app/src/main/res/drawable/shape_border_radius_40.xml" value="0.1175" />
+        <entry key="app/src/main/res/drawable/shape_radius_32.xml" value="0.169" />
+        <entry key="app/src/main/res/layout/activity_empty.xml" value="0.12563323201621074" />
+        <entry key="app/src/main/res/layout/activity_follower.xml" value="0.2341485507246377" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.18626244928418975" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_recyclerview.xml" value="0.1371182427890059" />
+        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.17348327636718752" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1531906127929688" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_follower.xml" value="0.2685254083163497" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
