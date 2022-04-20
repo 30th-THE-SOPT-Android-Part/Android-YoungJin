@@ -22,19 +22,34 @@
     </style>
 
     <style name="Widget.Button.Style" parent="">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingVertical">@dimen/spacingBase</item>
+    </style>
+
+    <style name="Widget.RoundButton.Style" parent="Widget.Button.Style">
         <item name="android:layout_height">1dp</item>
         <item name="android:backgroundTint">@color/selector_button_color</item>
         <item name="android:background">@drawable/shape_border_radius_10</item>
-        <item name="android:minWidth">0dp</item>
-        <item name="android:minHeight">0dp</item>
         <item name="android:layout_marginTop">@dimen/spacing10</item>
-        <item name="android:paddingVertical">@dimen/spacingBase</item>
-        <item name="android:textAppearance">@style/Widget.Button.TextAppearance</item>
+        <item name="android:textAppearance">@style/Widget.RoundButton.TextAppearance</item>
     </style>
 
-    <style name="Widget.Button.TextAppearance" parent="">
+    <style name="Widget.FullButton.Style" parent="Widget.Button.Style">
+        <item name="android:background">@color/gray_700</item>
+        <item name="android:paddingVertical">@dimen/spacingBase</item>
+        <item name="android:textAppearance">@style/Widget.FullButton.TextAppearance</item>
+    </style>
+
+    <style name="Widget.RoundButton.TextAppearance" parent="">
         <item name="android:textSize">@dimen/spacingBase</item>
         <item name="android:textColor">@color/selector_button_text_color</item>
+        <item name="android:fontFamily">@font/suit_sb</item>
+    </style>
+
+    <style name="Widget.FullButton.TextAppearance" parent="">
+        <item name="android:textSize">@dimen/spacingBase</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/suit_sb</item>
     </style>
 
@@ -103,4 +118,43 @@
         <item name="android:background">@color/gray_200</item>
         <item name="android:layout_marginTop">@dimen/spacing10</item>
     </style>
+
+    <style name="My.Section.Title" parent="">
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:layout_marginStart">@dimen/spacingBase</item>
+        <item name="android:layout_marginBottom">@dimen/spacing12</item>
+    </style>
+
+    <!-- Home -->
+    <style name="Home.GitInfo.Count.Style" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textAppearance">@style/Home.GitInfo.Count.TextAppearance</item>
+    </style>
+
+    <style name="Home.GitInfo.Count.TextAppearance" parent="">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/purple_500</item>
+        <item name="android:fontFamily">@font/suit_eb</item>
+    </style>
+
+    <style name="Home.GitInfo.Label.Style" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/spacingMicro</item>
+        <item name="android:textAppearance">@style/Home.GitInfo.Label.TextAppearance</item>
+    </style>
+
+    <style name="Home.GitInfo.Label.TextAppearance" parent="">
+        <item name="android:textSize">@dimen/typographyDescription</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/suit_r</item>
+    </style>
+
+    <style name="Home.TabItem.TextAppearance.Style" parent="">
+        <item name="android:textSize">@dimen/typographyDescription</item>
+        <item name="android:fontFamily">@font/suit_sb</item>
+    </style>
+
 </resources>

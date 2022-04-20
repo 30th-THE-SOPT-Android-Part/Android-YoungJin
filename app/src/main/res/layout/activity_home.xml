@@ -35,7 +35,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guide_start"
                 android:layout_width="wrap_content"
@@ -67,12 +66,12 @@
                     android:layout_width="80dp"
                     android:layout_height="0dp"
                     android:background="@drawable/shape_border_radius_40"
-                    android:src="@drawable/profile_img"
                     app:imageRes="@{R.drawable.profile_img}"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/profile_img" />
 
                 <TextView
                     android:id="@+id/name"
@@ -88,18 +87,79 @@
                     app:layout_constraintTop_toBottomOf="@id/profile_img"
                     tools:text="최영진" />
 
-                <TextView
-                    android:id="@+id/email"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacingMicro"
-                    android:fontFamily="@font/montserrat_r"
-                    android:text="@{viewModel.userInfo.email}"
-                    android:textColor="@color/gray_300"
-                    android:textSize="@dimen/typographyDetail"
+                    android:layout_marginTop="@dimen/spacing20"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/name" />
+                    app:layout_constraintTop_toBottomOf="@id/name">
+
+                    <LinearLayout
+                        android:id="@+id/follower_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacingLarge"
+                        android:onClick="moveToGithubDetail"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@id/repository_container"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/follower_count"
+                            style="@style/Home.GitInfo.Count.Style"
+                            android:text="@{Integer.toString(viewModel.follower.size())}"
+                            tools:text="10" />
+
+                        <TextView
+                            style="@style/Home.GitInfo.Label.Style"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Followers" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/repository_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="moveToGithubDetail"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/repository_count"
+                            style="@style/Home.GitInfo.Count.Style"
+                            android:text="@{Integer.toString(viewModel.repositories.size())}"
+                            tools:text="10" />
+
+                        <TextView
+                            style="@style/Home.GitInfo.Label.Style"
+                            android:text="Repositories" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/following_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacingLarge"
+                        android:onClick="moveToGithubDetail"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/repository_container"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/following_count"
+                            style="@style/Home.GitInfo.Count.Style"
+                            android:text="@{Integer.toString(viewModel.following.size())}"
+                            tools:text="10" />
+
+                        <TextView
+                            style="@style/Home.GitInfo.Label.Style"
+                            android:text="Following" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

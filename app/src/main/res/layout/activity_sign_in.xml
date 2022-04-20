@@ -94,7 +94,7 @@
 
         <Button
             android:id="@+id/sign_in"
-            style="@style/Widget.Button.Style"
+            style="@style/Widget.RoundButton.Style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:onClick="@{() -> viewModel.signIn()}"
