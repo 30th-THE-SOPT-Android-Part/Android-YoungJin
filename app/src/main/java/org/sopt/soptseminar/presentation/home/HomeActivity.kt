@@ -44,7 +44,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         binding.blog.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    fun moveToGithubDetail(view: View) {
+    fun moveToGithubProfile(view: View) {
         val position = when (view) {
             binding.followingContainer -> GithubDetailViewType.FOLLOWING.ordinal
             binding.repositoryContainer -> GithubDetailViewType.REPOSITORIES.ordinal

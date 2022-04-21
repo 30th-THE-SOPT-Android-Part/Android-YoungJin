@@ -37,7 +37,7 @@ class GithubProfileActivity :
             handleArguments(it)
         }
 
-        initializeView()
+        initLayout()
         addListeners()
     }
 
@@ -51,7 +51,7 @@ class GithubProfileActivity :
         viewModel.setRepositories(bundle[ARG_REPOSITORY_LIST] as? List<RepositoryInfo>)
     }
 
-    private fun initializeView() {
+    private fun initLayout() {
         binding.githubDetail.run {
             adapter = GithubDetailAdapter(this@GithubProfileActivity)
             setCurrentItem(position, false)

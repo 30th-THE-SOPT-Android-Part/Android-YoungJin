@@ -100,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacingLarge"
-                        android:onClick="moveToGithubDetail"
+                        android:onClick="moveToGithubProfile"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toStartOf="@id/repository_container"
                         app:layout_constraintTop_toTopOf="parent">
@@ -122,7 +122,7 @@
                         android:id="@+id/repository_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="moveToGithubDetail"
+                        android:onClick="moveToGithubProfile"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/spacingLarge"
-                        android:onClick="moveToGithubDetail"
+                        android:onClick="moveToGithubProfile"
                         android:orientation="vertical"
                         app:layout_constraintStart_toEndOf="@id/repository_container"
                         app:layout_constraintTop_toTopOf="parent">
