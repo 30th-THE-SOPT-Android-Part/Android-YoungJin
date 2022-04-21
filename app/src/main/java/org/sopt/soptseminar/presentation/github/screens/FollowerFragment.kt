@@ -2,12 +2,11 @@ package org.sopt.soptseminar.presentation.github.screens
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
+import org.sopt.soptseminar.R
+import org.sopt.soptseminar.base.BaseFragment
 import org.sopt.soptseminar.databinding.FragmentFollowerBinding
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.models.types.GithubDetailViewType
@@ -15,8 +14,8 @@ import org.sopt.soptseminar.presentation.github.adapters.FollowerListAdapter
 import org.sopt.soptseminar.presentation.home.ProfileViewModel
 
 @AndroidEntryPoint
-class FollowerFragment : Fragment(), FollowerListAdapter.OnItemClickListener {
-    lateinit var binding: FragmentFollowerBinding
+class FollowerFragment : BaseFragment<FragmentFollowerBinding>(R.layout.fragment_follower),
+    FollowerListAdapter.OnItemClickListener {
     private val viewModel: ProfileViewModel by activityViewModels()
     private var followerViewType: String = GithubDetailViewType.FOLLOWER.name
 
@@ -30,15 +29,9 @@ class FollowerFragment : Fragment(), FollowerListAdapter.OnItemClickListener {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentFollowerBinding.inflate(layoutInflater, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initLayout()
-
-        return binding.root
     }
 
     private fun initLayout() {

@@ -3,15 +3,14 @@ package org.sopt.soptseminar.presentation.github.screens
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
+import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivityGithubProfileBinding
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.models.RepositoryInfo
@@ -20,9 +19,9 @@ import org.sopt.soptseminar.presentation.home.ProfileViewModel
 import org.sopt.soptseminar.presentation.sign.screens.SignInActivity
 
 @AndroidEntryPoint
-class GithubProfileActivity : AppCompatActivity() {
+class GithubProfileActivity :
+    BaseActivity<ActivityGithubProfileBinding>(R.layout.activity_github_profile) {
     private val viewModel: ProfileViewModel by viewModels()
-    private lateinit var binding: ActivityGithubProfileBinding
 
     private var position: Int = 0
     private val tabTitles = arrayOf(
@@ -33,7 +32,6 @@ class GithubProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_github_profile)
         binding.viewModel = viewModel
         intent.getBundleExtra(ARG_GITHUB_INFO)?.let {
             handleArguments(it)

@@ -3,13 +3,12 @@ package org.sopt.soptseminar.presentation.github.screens
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import dagger.hilt.android.AndroidEntryPoint
+import org.sopt.soptseminar.R
+import org.sopt.soptseminar.base.BaseFragment
 import org.sopt.soptseminar.databinding.FragmentRepositoryBinding
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.presentation.github.adapters.RepositoryListAdapter
@@ -17,21 +16,16 @@ import org.sopt.soptseminar.presentation.home.ProfileViewModel
 import org.sopt.soptseminar.util.ItemTouchHelperCallback
 
 @AndroidEntryPoint
-class RepositoryFragment : Fragment(), RepositoryListAdapter.OnItemClickListener,
+class RepositoryFragment : BaseFragment<FragmentRepositoryBinding>(R.layout.fragment_repository),
+    RepositoryListAdapter.OnItemClickListener,
     RepositoryListAdapter.OnItemTouchListener {
-    private lateinit var binding: FragmentRepositoryBinding
     private val viewModel: ProfileViewModel by activityViewModels()
     private lateinit var adapter: RepositoryListAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRepositoryBinding.inflate(layoutInflater, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initLayout()
         addListeners()
-
-        return binding.root
     }
 
     private fun initLayout() {

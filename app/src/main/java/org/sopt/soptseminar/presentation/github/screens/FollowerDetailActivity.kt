@@ -5,23 +5,22 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
+import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivityFollowerDetailBinding
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.presentation.github.viewmodels.FollowerDetailViewModel
 
 @AndroidEntryPoint
-class FollowerDetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityFollowerDetailBinding
+class FollowerDetailActivity :
+    BaseActivity<ActivityFollowerDetailBinding>(R.layout.activity_follower_detail) {
     private val viewModel: FollowerDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_follower_detail)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         intent.getParcelableExtra<FollowerInfo>(ARG_FOLLOWER_INFO)?.let { follower ->
             viewModel.setFollowerInfo(follower)

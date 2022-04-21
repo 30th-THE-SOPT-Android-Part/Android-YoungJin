@@ -8,11 +8,10 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
+import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivityHomeBinding
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.models.UserInfo
@@ -20,14 +19,12 @@ import org.sopt.soptseminar.models.types.GithubDetailViewType
 import org.sopt.soptseminar.presentation.github.screens.GithubProfileActivity
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityHomeBinding
+class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private val viewModel: ProfileViewModel by viewModels()
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this@HomeActivity
 
