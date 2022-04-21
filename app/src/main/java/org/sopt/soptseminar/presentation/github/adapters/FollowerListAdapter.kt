@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.sopt.soptseminar.databinding.ItemFollowerBinding
 import org.sopt.soptseminar.models.FollowerInfo
 
-class FollowerListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FollowerListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var listener: OnItemClickListener
 
     private val diffCallback = object : DiffUtil.ItemCallback<FollowerInfo>() {
@@ -35,7 +35,7 @@ class FollowerListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(follower: FollowerInfo) {
             with(binding) {
-                this.item = follower
+                this.follower = follower
                 profileImage.clipToOutline = true
 
                 profileImage.setOnClickListener {

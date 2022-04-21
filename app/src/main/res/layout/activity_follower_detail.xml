@@ -86,11 +86,11 @@
 
         <!-- TODO 깃허브로 이동하는 버튼 추가 -->
         <Button
+            style="@style/Widget.FullButton.Style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.FullButton.Style"
             android:onClick="moveToGithub"
             android:text="깃허브로 이동하기"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

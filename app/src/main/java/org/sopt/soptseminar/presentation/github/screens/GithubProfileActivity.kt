@@ -68,25 +68,6 @@ class GithubProfileActivity :
         }
     }
 
-    inner class GithubDetailAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
-        override fun getItemCount(): Int = GithubDetailViewType.values().size
-
-        override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> {
-                    FollowerFragment.newInstance(GithubDetailViewType.FOLLOWER)
-                }
-                1 -> {
-                    RepositoryFragment()
-                }
-                2 -> {
-                    FollowerFragment.newInstance(GithubDetailViewType.FOLLOWING)
-                }
-                else -> FollowerFragment.newInstance(GithubDetailViewType.FOLLOWER)
-            }
-        }
-    }
-
     private fun backToPrevious() {
         viewModel.getRepositories().observe(this) { repositories ->
             val intent = Intent(this, SignInActivity::class.java)
@@ -97,6 +78,18 @@ class GithubProfileActivity :
             )
             setResult(RESULT_OK, intent)
             super.onBackPressed()
+        }
+    }
+
+    inner class GithubDetailAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
+        override fun getItemCount(): Int = GithubDetailViewType.values().size
+
+        override fun createFragment(position: Int): Fragment {
+            return when (position) {
+                0 -> FollowerFragment.newInstance(GithubDetailViewType.FOLLOWER)
+                1 -> RepositoryFragment()
+                else -> FollowerFragment.newInstance(GithubDetailViewType.FOLLOWING)
+            }
         }
     }
 

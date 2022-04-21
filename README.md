@@ -226,8 +226,6 @@ override fun onItemSwipe(position: Int) {
 `ProfileViewModel.kt`
 ```kotlin
 fun moveRepository(fromPosition: Int, toPosition: Int) {
-    if (repositories.value == null) return
-
     repositories.value = repositories.value?.apply {
         val origin = this[fromPosition]
         removeAt(fromPosition)

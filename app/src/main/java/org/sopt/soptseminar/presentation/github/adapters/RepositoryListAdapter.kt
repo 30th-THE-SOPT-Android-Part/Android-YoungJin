@@ -9,7 +9,7 @@ import org.sopt.soptseminar.databinding.ItemRepositoryBinding
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.util.ItemTouchHelperListener
 
-class RepositoryListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class RepositoryListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     ItemTouchHelperListener {
     private lateinit var clickListener: OnItemClickListener
     private lateinit var touchListener: OnItemTouchListener
@@ -47,7 +47,7 @@ class RepositoryListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
         RecyclerView.ViewHolder(binding.root) {
         fun bind(repository: RepositoryInfo) {
             with(binding) {
-                this.item = repository
+                this.repository = repository
                 repositoryContainer.setOnClickListener {
                     clickListener.onItemClick(repository)
                 }
