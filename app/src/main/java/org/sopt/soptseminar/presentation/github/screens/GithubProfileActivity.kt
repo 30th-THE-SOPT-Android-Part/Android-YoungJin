@@ -1,23 +1,29 @@
 package org.sopt.soptseminar.presentation.github.screens
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.databinding.ActivityGithubProfileBinding
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.models.types.GithubDetailViewType
-import org.sopt.soptseminar.presentation.github.viewmodels.GithubProfileViewModel
+import org.sopt.soptseminar.presentation.home.ProfileViewModel
+import org.sopt.soptseminar.presentation.sign.screens.SignInActivity
 
+@AndroidEntryPoint
 class GithubProfileActivity : AppCompatActivity() {
-    private val viewModel: GithubProfileViewModel by viewModels()
+    private val viewModel: ProfileViewModel by viewModels()
     private lateinit var binding: ActivityGithubProfileBinding
+
     private var position: Int = 0
     private val tabTitles = arrayOf(
         GithubDetailViewType.FOLLOWER.strRes,
@@ -42,11 +48,9 @@ class GithubProfileActivity : AppCompatActivity() {
             this.position = position
         }
 
-        viewModel.setGithubInfoList(
-            bundle[ARG_FOLLOWER_LIST] as? ArrayList<FollowerInfo>,
-            bundle[ARG_FOLLOWING_LIST] as? ArrayList<FollowerInfo>,
-            bundle[ARG_REPOSITORY_LIST] as? ArrayList<RepositoryInfo>,
-        )
+        viewModel.setFollowers(bundle[ARG_FOLLOWER_LIST] as? List<FollowerInfo>)
+        viewModel.setFollowing(bundle[ARG_FOLLOWING_LIST] as? List<FollowerInfo>)
+        viewModel.setRepositories(bundle[ARG_REPOSITORY_LIST] as? List<RepositoryInfo>)
     }
 
     private fun initializeView() {
@@ -62,7 +66,7 @@ class GithubProfileActivity : AppCompatActivity() {
 
     private fun addListeners() {
         binding.back.setOnClickListener {
-            super.onBackPressed()
+            backToPrevious()
         }
     }
 
@@ -85,6 +89,19 @@ class GithubProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun backToPrevious() {
+        viewModel.getRepositories().observe(this) { repositories ->
+            val intent = Intent(this, SignInActivity::class.java)
+            intent.putExtra(
+                ARG_GITHUB_PROFILE_INFO, bundleOf(
+                    ARG_REPOSITORY_LIST_RESULT to repositories
+                )
+            )
+            setResult(RESULT_OK, intent)
+            super.onBackPressed()
+        }
+    }
+
     companion object {
         private const val TAG = "GithubProfileActivity"
         private const val ARG_GITHUB_INFO = "userInfo"
@@ -92,5 +109,7 @@ class GithubProfileActivity : AppCompatActivity() {
         const val ARG_FOLLOWER_LIST = "followerList"
         const val ARG_FOLLOWING_LIST = "followingList"
         const val ARG_REPOSITORY_LIST = "repositoryList"
+        private const val ARG_GITHUB_PROFILE_INFO = "githubProfileInfo"
+        private const val ARG_REPOSITORY_LIST_RESULT = "repositoryListResult"
     }
 }

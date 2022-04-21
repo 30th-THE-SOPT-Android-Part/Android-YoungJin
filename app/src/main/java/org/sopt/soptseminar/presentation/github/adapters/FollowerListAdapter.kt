@@ -9,7 +9,6 @@ import org.sopt.soptseminar.databinding.ItemFollowerBinding
 import org.sopt.soptseminar.models.FollowerInfo
 
 class FollowerListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val dataSet = arrayListOf<FollowerInfo>()
     private lateinit var listener: OnItemClickListener
 
     private val diffCallback = object : DiffUtil.ItemCallback<FollowerInfo>() {

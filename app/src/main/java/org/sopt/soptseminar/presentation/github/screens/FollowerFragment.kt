@@ -7,15 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.databinding.FragmentFollowerBinding
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.models.types.GithubDetailViewType
 import org.sopt.soptseminar.presentation.github.adapters.FollowerListAdapter
-import org.sopt.soptseminar.presentation.github.viewmodels.GithubProfileViewModel
+import org.sopt.soptseminar.presentation.home.ProfileViewModel
 
+@AndroidEntryPoint
 class FollowerFragment : Fragment(), FollowerListAdapter.OnItemClickListener {
     lateinit var binding: FragmentFollowerBinding
-    private val viewModel: GithubProfileViewModel by activityViewModels()
+    private val viewModel: ProfileViewModel by activityViewModels()
     private var followerViewType: String = GithubDetailViewType.FOLLOWER.name
 
     override fun onCreate(savedInstanceState: Bundle?) {

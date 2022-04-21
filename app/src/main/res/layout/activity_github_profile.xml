@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="org.sopt.soptseminar.presentation.github.viewmodels.GithubProfileViewModel" />
+            type="org.sopt.soptseminar.presentation.home.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,7 @@
                 style="@style/Widget.ToolbarTitle.TextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.userName}"
+                android:text="@{viewModel.userInfo.name}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

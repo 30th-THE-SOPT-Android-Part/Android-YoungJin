@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.soptseminar.databinding.ItemRepositoryBinding
 import org.sopt.soptseminar.models.RepositoryInfo
+import org.sopt.soptseminar.util.ItemTouchHelperListener
 
-class RepositoryListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val dataSet = arrayListOf<RepositoryInfo>()
-    private lateinit var listener: OnItemClickListener
+class RepositoryListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+    ItemTouchHelperListener {
+    private lateinit var clickListener: OnItemClickListener
+    private lateinit var touchListener: OnItemTouchListener
 
     private val diffCallback = object : DiffUtil.ItemCallback<RepositoryInfo>() {
         override fun areItemsTheSame(oldItem: RepositoryInfo, newItem: RepositoryInfo): Boolean {
@@ -28,8 +30,17 @@ class RepositoryListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         fun onItemClick(item: RepositoryInfo)
     }
 
+    interface OnItemTouchListener {
+        fun onItemMove(fromPosition: Int, toPosition: Int)
+        fun onItemSwipe(position: Int)
+    }
+
     fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
+        this.clickListener = listener
+    }
+
+    fun setOnItemTouchListener(listener: OnItemTouchListener) {
+        this.touchListener = listener
     }
 
     inner class FollowerViewHolder(private val binding: ItemRepositoryBinding) :
@@ -38,7 +49,7 @@ class RepositoryListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             with(binding) {
                 this.item = repository
                 repositoryContainer.setOnClickListener {
-                    listener.onItemClick(repository)
+                    clickListener.onItemClick(repository)
                 }
             }
         }
@@ -62,8 +73,17 @@ class RepositoryListAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     override fun getItemCount(): Int = differ.currentList.size
 
-    fun submitList(items: List<RepositoryInfo>?) {
+    fun submitList(items: List<RepositoryInfo>) {
         differ.submitList(items)
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+        touchListener.onItemMove(fromPosition, toPosition)
+        return true
+    }
+
+    override fun onItemSwipe(position: Int) {
+        touchListener.onItemSwipe(position)
     }
 
     companion object {
