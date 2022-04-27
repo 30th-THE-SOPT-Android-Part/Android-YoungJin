@@ -65,7 +65,6 @@
             android:layout_height="0dp"
             android:background="@drawable/shape_border_radius_24"
             android:foreground="@color/black_alpha_5"
-            app:imageUri="@{viewModel.followerInfo.profile}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintStart_toStartOf="@id/guide_start"

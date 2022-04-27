@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.sopt.soptseminar.databinding.ItemFollowerBinding
 import org.sopt.soptseminar.models.FollowerInfo
 
@@ -36,6 +37,8 @@ class FollowerListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(follower: FollowerInfo) {
             with(binding) {
                 this.follower = follower
+
+                Glide.with(profileImage).load(follower.profile).into(profileImage)
                 profileImage.clipToOutline = true
 
                 profileImage.setOnClickListener {

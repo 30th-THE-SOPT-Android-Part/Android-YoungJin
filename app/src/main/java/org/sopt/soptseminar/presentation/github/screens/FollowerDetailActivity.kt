@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseActivity
@@ -34,6 +35,7 @@ class FollowerDetailActivity :
             onBackPressed()
         }
 
+        Glide.with(binding.image).load(viewModel.getFollowerInfo()?.profile).into(binding.image)
         binding.image.clipToOutline = true
     }
 

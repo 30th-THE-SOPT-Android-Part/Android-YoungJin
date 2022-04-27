@@ -23,7 +23,6 @@
             android:background="@drawable/shape_border_radius_10"
             android:foreground="@color/black_alpha_5"
             android:scaleType="centerCrop"
-            app:imageUri="@{follower.profile}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/profile_img" />
