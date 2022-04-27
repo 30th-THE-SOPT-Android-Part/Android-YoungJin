@@ -9,10 +9,19 @@
     <dimen name="spacing10">10dp</dimen>
     <dimen name="spacing12">12dp</dimen>
     <dimen name="spacing20">20dp</dimen>
+    <dimen name="spacing24">24dp</dimen>
+    <dimen name="spacing28">28dp</dimen>
 
     <!-- Typography  -->
     <dimen name="typographyDetail">12sp</dimen>
     <dimen name="typographyDescription">14sp</dimen>
     <dimen name="typographyBase">16sp</dimen>
     <dimen name="typographyTitle">18sp</dimen>
+
+    <!-- Widget -->
+    <dimen name="HeightTabItem">32dp</dimen>
+    <dimen name="WidthTabItem">120dp</dimen>
+
+    <!-- Radius -->
+    <dimen name="radiusTabItem">16dp</dimen>
 </resources>

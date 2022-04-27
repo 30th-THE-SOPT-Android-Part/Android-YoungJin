@@ -43,4 +43,9 @@
     <string name="part_design">Design</string>
     <string name="part_plan">Plan</string>
 
+    <!-- Part -->
+    <string name="github_detail_follower">Followers</string>
+    <string name="github_detail_following">Following</string>
+    <string name="github_detail_repository">Repositories</string>
+
 </resources>

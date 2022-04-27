@@ -3,22 +3,19 @@ package org.sopt.soptseminar.presentation.sign.screens
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
+import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivitySignUpBinding
 import org.sopt.soptseminar.presentation.sign.viewmodels.SignViewModel
 import org.sopt.soptseminar.util.extensions.showToast
 
 @AndroidEntryPoint
-class SignUpActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignUpBinding
+class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private val viewModel: SignViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
         binding.viewModel = viewModel
 
         addListeners()

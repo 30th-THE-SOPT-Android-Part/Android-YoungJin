@@ -1,11 +1,20 @@
 package org.sopt.soptseminar.util
 
-import android.widget.ImageView
-import androidx.annotation.DrawableRes
+import android.graphics.Color
+import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.RecyclerView
 
-@BindingAdapter("app:imageRes")
-fun ImageView.setImage(@DrawableRes imageResId: Int) {
-    Glide.with(this).load(imageResId).into(this)
+@BindingAdapter(value = ["dividerHeight", "dividerPadding", "dividerColor"], requireAll = false)
+fun RecyclerView.setDivider(
+    dividerHeight: Float?,
+    dividerPadding: Float?,
+    @ColorInt dividerColor: Int?
+) {
+    val decoration = CustomDecoration(
+        height = dividerHeight ?: 0f,
+        padding = dividerPadding ?: 0f,
+        color = dividerColor ?: Color.TRANSPARENT
+    )
+    addItemDecoration(decoration)
 }

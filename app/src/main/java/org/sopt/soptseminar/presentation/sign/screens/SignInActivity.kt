@@ -6,10 +6,9 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
+import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivitySignInBinding
 import org.sopt.soptseminar.models.SignInfo
 import org.sopt.soptseminar.models.UserInfo
@@ -18,14 +17,12 @@ import org.sopt.soptseminar.presentation.sign.viewmodels.SignViewModel
 import org.sopt.soptseminar.util.extensions.showToast
 
 @AndroidEntryPoint
-class SignInActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignInBinding
+class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
     private val viewModel: SignViewModel by viewModels()
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this@SignInActivity
 
