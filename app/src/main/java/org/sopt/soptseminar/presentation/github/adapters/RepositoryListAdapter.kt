@@ -2,29 +2,17 @@ package org.sopt.soptseminar.presentation.github.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.soptseminar.databinding.ItemRepositoryBinding
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.util.ItemTouchHelperListener
 
-class RepositoryListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class RepositoryListAdapter : ListAdapter<RepositoryInfo, RecyclerView.ViewHolder>(diffCallback),
     ItemTouchHelperListener {
     private lateinit var clickListener: OnItemClickListener
     private lateinit var touchListener: OnItemTouchListener
-
-    private val diffCallback = object : DiffUtil.ItemCallback<RepositoryInfo>() {
-        override fun areItemsTheSame(oldItem: RepositoryInfo, newItem: RepositoryInfo): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: RepositoryInfo, newItem: RepositoryInfo): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-    private val differ = AsyncListDiffer(this, diffCallback)
 
     interface OnItemClickListener {
         fun onItemClick(item: RepositoryInfo)
@@ -65,16 +53,10 @@ class RepositoryListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        val data = differ.currentList[position]
+        val data = currentList[position]
         when (viewHolder) {
             is FollowerViewHolder -> viewHolder.bind(data)
         }
-    }
-
-    override fun getItemCount(): Int = differ.currentList.size
-
-    fun submitList(items: List<RepositoryInfo>) {
-        differ.submitList(items)
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
@@ -88,5 +70,21 @@ class RepositoryListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
 
     companion object {
         private const val TAG = "RepositoryListAdapter"
+
+        private val diffCallback = object : DiffUtil.ItemCallback<RepositoryInfo>() {
+            override fun areItemsTheSame(
+                oldItem: RepositoryInfo,
+                newItem: RepositoryInfo
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: RepositoryInfo,
+                newItem: RepositoryInfo
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }
