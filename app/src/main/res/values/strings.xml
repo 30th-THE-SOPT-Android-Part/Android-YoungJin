@@ -3,6 +3,11 @@
     <string name="sopt">SOPT</string>
     <string name="sopt_ko">솝트</string>
 
+    <!-- Navigation -->
+    <string name="tab_profile">PROFILE</string>
+    <string name="tab_github">GITHUB</string>
+    <string name="tab_camera">CAMERA</string>
+
     <!-- Sign -->
     <string name="sign_in">로그인</string>
     <string name="sign_up">회원가입</string>
