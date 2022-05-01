@@ -69,8 +69,8 @@
     </style>
 
     <style name="Widget.EditText.Style" parent="">
-        <item name="android:background">@drawable/shape_border_radius_10</item>
-        <item name="android:backgroundTint">@color/gray_100</item>
+        <item name="android:background">@drawable/selector_edittext_background</item>
+<!--        <item name="android:backgroundTint">@color/gray_100</item>-->
         <item name="android:paddingVertical">@dimen/spacingBase</item>
         <item name="android:paddingHorizontal">@dimen/spacing12</item>
         <item name="android:textColorHint">@color/gray_250</item>
