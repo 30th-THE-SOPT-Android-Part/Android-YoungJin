@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="org.sopt.soptseminar.presentation.home.ProfileViewModel" />
+            type="org.sopt.soptseminar.presentation.profile.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -15,7 +15,7 @@ import org.sopt.soptseminar.databinding.ActivityGithubProfileBinding
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.models.types.GithubDetailViewType
-import org.sopt.soptseminar.presentation.home.ProfileViewModel
+import org.sopt.soptseminar.presentation.profile.ProfileViewModel
 import org.sopt.soptseminar.presentation.sign.screens.SignInActivity
 
 @AndroidEntryPoint

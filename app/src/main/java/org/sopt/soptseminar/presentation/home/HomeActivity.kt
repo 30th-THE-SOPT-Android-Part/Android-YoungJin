@@ -17,6 +17,7 @@ import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.models.UserInfo
 import org.sopt.soptseminar.models.types.GithubDetailViewType
 import org.sopt.soptseminar.presentation.github.screens.GithubProfileActivity
+import org.sopt.soptseminar.presentation.profile.ProfileViewModel
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {

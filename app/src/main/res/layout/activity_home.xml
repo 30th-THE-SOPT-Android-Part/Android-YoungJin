@@ -6,11 +6,9 @@
 
     <data>
 
-        <import type="org.sopt.soptseminar.R" />
-
         <variable
             name="viewModel"
-            type="org.sopt.soptseminar.presentation.home.ProfileViewModel" />
+            type="org.sopt.soptseminar.presentation.profile.ProfileViewModel" />
     </data>
 
     <ScrollView
