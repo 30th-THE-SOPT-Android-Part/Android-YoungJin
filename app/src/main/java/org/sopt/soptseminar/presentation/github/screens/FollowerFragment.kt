@@ -3,7 +3,7 @@ package org.sopt.soptseminar.presentation.github.screens
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseFragment
@@ -11,12 +11,12 @@ import org.sopt.soptseminar.databinding.FragmentFollowerBinding
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.models.types.GithubDetailViewType
 import org.sopt.soptseminar.presentation.github.adapters.FollowerListAdapter
-import org.sopt.soptseminar.presentation.home.ProfileViewModel
+import org.sopt.soptseminar.presentation.github.viewmodels.GithubViewModel
 
 @AndroidEntryPoint
 class FollowerFragment : BaseFragment<FragmentFollowerBinding>(R.layout.fragment_follower),
     FollowerListAdapter.OnItemClickListener {
-    private val viewModel: ProfileViewModel by activityViewModels()
+    private val viewModel: GithubViewModel by hiltNavGraphViewModels(R.id.github_nav_graph)
     private var followerViewType: String = GithubDetailViewType.FOLLOWER.name
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +37,7 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>(R.layout.fragment
     private fun initLayout() {
         val items = when (followerViewType) {
             GithubDetailViewType.FOLLOWER.name -> viewModel.getFollower()
-            GithubDetailViewType.FOLLOWING.name -> viewModel.getFollowing()
-            else -> viewModel.getFollower()
+            else -> viewModel.getFollowing()
         }
 
         FollowerListAdapter().run {

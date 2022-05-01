@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/profile_nav_graph">
+
+    <include app:graph="@navigation/profile_nav_graph" />
+    <include app:graph="@navigation/github_nav_graph" />
+
+    <fragment
+        android:id="@+id/gallery_fragment"
+        android:name="org.sopt.soptseminar.presentation.gallery.GalleryFragment"
+        android:label="galleryFragment"
+        tools:layout="@layout/fragment_gallery" />
+</navigation>

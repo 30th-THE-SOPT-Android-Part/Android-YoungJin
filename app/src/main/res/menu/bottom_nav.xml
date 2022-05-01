@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/profile_nav_graph"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/tab_profile" />
+    <item
+        android:id="@+id/github_nav_graph"
+        android:icon="@drawable/ic_github"
+        android:title="@string/tab_github" />
+    <item
+        android:id="@+id/gallery_fragment"
+        android:icon="@drawable/ic_camera"
+        android:title="@string/tab_camera" />
+</menu>

@@ -17,6 +17,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="TextAppearance.BottomNavigation.Tab.Text" parent="">
+        <item name="android:fontFamily">@font/suit_r</item>
+        <item name="android:textSize">@dimen/typographyDetail</item>
+    </style>
+
     <style name="Widget.Button.Basic.Style" parent="">
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
