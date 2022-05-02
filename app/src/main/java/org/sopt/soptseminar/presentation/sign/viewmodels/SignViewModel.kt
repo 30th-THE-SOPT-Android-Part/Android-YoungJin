@@ -3,18 +3,30 @@ package org.sopt.soptseminar.presentation.sign.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import org.sopt.soptseminar.models.SignInfo
 import org.sopt.soptseminar.models.UserInfo
+import org.sopt.soptseminar.modules.datastore.UserPreferenceRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class SignViewModel @Inject constructor() : ViewModel() {
+class SignViewModel @Inject constructor(
+    private val userPreferenceRepository: UserPreferenceRepository
+) : ViewModel() {
     private val userName = MutableLiveData<String>()
     private val userId = MutableLiveData<String>()
     private val userPassword = MutableLiveData<String>()
     private val isValidSignInput = MutableLiveData<Boolean>()
-    private var userInfo: UserInfo = UserInfo(name = "", age = 24, mbti ="ISFP", university = "성신여대", major = "컴퓨터공학과", email = "cyjin6789@gmail.com")
+    private var userInfo: UserInfo = UserInfo(
+        name = "최영진",
+        age = 24,
+        mbti = "ISFP",
+        university = "성신여대",
+        major = "컴퓨터공학과",
+        email = "cyjin6789@gmail.com"
+    )
     private var signInfo: SignInfo? = null
 
     fun signIn() {
@@ -24,22 +36,26 @@ class SignViewModel @Inject constructor() : ViewModel() {
                 id = userId.value!!,
                 password = userPassword.value!!
             )
-            userInfo.name =  userName.value ?: "최영진"
+            userName.value?.let { userInfo.name = it }
 
             // TODO Implement the signin process
+            viewModelScope.launch {
+                userPreferenceRepository.setUserPreference(userInfo)
+            }
         }
 
         isValidSignInput.value = isValid
     }
 
     fun signUp() {
-        val isValid = !(userId.value.isNullOrEmpty() || userName.value.isNullOrEmpty() || userPassword.value.isNullOrEmpty())
+        val isValid =
+            !(userId.value.isNullOrEmpty() || userName.value.isNullOrEmpty() || userPassword.value.isNullOrEmpty())
         if (isValid) {
             signInfo = SignInfo(
                 id = userId.value!!,
                 password = userPassword.value!!
             )
-            userInfo.name =  userName.value!!
+            userInfo.name = userName.value!!
 
             // TODO Implement the signin process
         }
@@ -68,7 +84,6 @@ class SignViewModel @Inject constructor() : ViewModel() {
         userPassword.value = signInfo.password
     }
 
-    fun getUserName(): LiveData<String> = userName
     fun getUserId(): LiveData<String> = userId
     fun getUserPassword(): LiveData<String> = userPassword
     fun getUserInfo(): UserInfo? = userInfo

@@ -8,19 +8,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseFragment
 import org.sopt.soptseminar.databinding.FragmentProfileBinding
-import org.sopt.soptseminar.models.UserInfo
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
     private val viewModel: ProfileViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.getParcelable<UserInfo>(ARG_USER_INFO)?.let { user ->
-            viewModel.setUserInfo(user)
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +29,5 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
     companion object {
         private const val TAG = "ProfileFragment"
-        private const val ARG_USER_INFO = "userInfo"
     }
 }

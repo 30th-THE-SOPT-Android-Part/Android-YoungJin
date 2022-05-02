@@ -12,7 +12,7 @@ import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivitySignInBinding
 import org.sopt.soptseminar.models.SignInfo
 import org.sopt.soptseminar.models.UserInfo
-import org.sopt.soptseminar.presentation.home.HomeActivity
+import org.sopt.soptseminar.presentation.MainActivity
 import org.sopt.soptseminar.presentation.sign.viewmodels.SignViewModel
 import org.sopt.soptseminar.util.extensions.showToast
 
@@ -64,9 +64,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     private fun moveToHome() {
-        val intent = Intent(this, HomeActivity::class.java)
-        intent.putExtra(ARG_USER_INFO, viewModel.getUserInfo())
-        startActivity(intent)
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
