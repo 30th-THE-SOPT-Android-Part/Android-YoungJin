@@ -1,9 +1,10 @@
 package org.sopt.soptseminar.presentation.github.screens
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseFragment
@@ -48,9 +49,11 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>(R.layout.fragment
     }
 
     override fun onItemClick(item: FollowerInfo) {
-        val intent = Intent(requireContext(), FollowerDetailActivity::class.java)
-        intent.putExtra(ARG_FOLLOWER_INFO, item)
-        startActivity(intent)
+        findNavController().navigate(
+            R.id.action_follower_to_follower_detail, bundleOf(
+                ARG_FOLLOWER_INFO to item
+            )
+        )
     }
 
     companion object {
