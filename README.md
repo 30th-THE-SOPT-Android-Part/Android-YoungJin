@@ -1,7 +1,256 @@
 # Android-YoungJin
-<!-- week3 작성 시 토글로 정리 예정 -->
+<!-- week4 작성 시 토글로 정리 예정 -->
 <!-- <details>
-<summary>week2</summary> -->
+<summary>week3</summary> -->
+
+# Week3
+<br>
+
+- [X] LEVEL 3
+
+EditText 디자인 적용|Bottom Navigation 적용|ViewPager2, TabLayout 적용|Gallery 접근|
+---|---|---|---|
+|<img src="https://user-images.githubusercontent.com/48701368/166404072-13f265e2-f07b-400b-a7fc-75bfcb1ab174.gif" width="250">|<img src="https://user-images.githubusercontent.com/48701368/166404061-3e7f8e2f-4f79-435f-9773-e42e2cc9b1a7.gif" width="250">|<img src="https://user-images.githubusercontent.com/48701368/166404076-c82abfdd-a7af-49a9-bc02-480c04a36812.gif" width="250">|<img src="https://user-images.githubusercontent.com/48701368/166404149-51ef9603-ccd8-4530-b6be-2dca6d4d064a.gif" width="250">
+
+<br>
+
+# 로그인 화면에서 포커스 여부에 따른 EditText 디자인 적용
+
+`selector_edittext_background.xml`
+```xml
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <stroke android:width="1dp" android:color="@color/gray_150" />
+            <corners android:radius="@dimen/radiusEditText" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gray_100" />
+            <corners android:radius="@dimen/radiusEditText" />
+        </shape>
+    </item>
+</selector>
+```
+<br>
+
+# Bottom Navigation 적용
+
+`bottom_nav_menu.xml`
+```xml
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/profile_nav_graph"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/tab_profile" />
+    <item
+        android:id="@+id/github_nav_graph"
+        android:icon="@drawable/ic_github"
+        android:title="@string/tab_github" />
+    <item
+        android:id="@+id/gallery_fragment"
+        android:icon="@drawable/ic_camera"
+        android:title="@string/tab_camera" />
+</menu>
+```
+
+`activity_main.xml`
+```xml
+<com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:theme="@style/TextAppearance.BottomNavigation.Tab.Text"
+            app:itemIconTint="@color/selector_bottom_navi"
+            app:itemRippleColor="@color/gray_300"
+            app:itemTextColor="@color/selector_bottom_navi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_nav" />
+```
+
+`MainActivity.kt`
+**Navigation** 을 사용해서 프래그먼트 전환 처리
+
+```kotlin
+private fun initLayout() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        binding.navMain.setupWithNavController(navHostFragment.navController)
+    }
+```
+
+<br>
+
+# ViewPager2 및 TabLayout적용
+1. **tabIndicator** 를 제거하기 위해 `app:tabIndicator="@null"` 추가
+2. **tabItem** 에 버튼 디자인을 적용하기 위해 `selector_tab_item_background.xml`추가
+
+`selector_tab_item_background.xml`
+```xml
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gray_700" />
+            <corners android:radius="@dimen/radiusTabItem" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</selector>
+```
+
+`fragment_github.xml`
+```xml
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/HeightTabItem"
+            android:layout_marginHorizontal="@dimen/spacingBase"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:tabBackground="@drawable/selector_tab_item_background"
+            app:tabGravity="center"
+            app:tabIndicator="@null"
+            app:tabMaxWidth="@dimen/WidthTabItem"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/Home.TabItem.TextAppearance.Style"
+            app:tabTextColor="@color/gray_700">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/github_detail_follower" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/github_detail_repository" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/github_detail_following" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/github_detail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab" />
+```
+
+`GithubFragment.kt`
+```kotlin
+private fun initLayout() {
+        binding.githubDetail.run {
+            adapter = GithubAdapter(requireActivity())
+            setCurrentItem(GithubDetailViewType.FOLLOWER.ordinal, false)
+        }
+
+        TabLayoutMediator(binding.tab, binding.githubDetail) { tab, position ->
+            tab.text = getString(tabTitles[position])
+        }.attach()
+    }
+```
+<br>
+
+# 갤러리에서 받아온 이미지 Uri를 Glide로 띄우기
+**ActivityResult API** 사용하여 읽기 권한 요청, 사용자가 선택한 이미지 uri를 Glide로 띄움
+
+```kotlin
+private fun addListeners() {
+        binding.imageContainer.setOnClickListener {
+            storagePermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+    }
+
+    private val storagePermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                galleryLauncher.launch("image/*")
+            }
+        }
+
+    private val galleryLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) {
+            Glide.with(binding.galleryImage).load(it).into(binding.galleryImage)
+        }
+
+```
+<br>
+
+# 새롭게 알게된 내용
+
+## ViewPager2 중첩 스크롤 이슈
+**Navigation** 을 사용해서 프래그먼트 전환을 구현했기 때문에 **BottomNavigation** 과 **ViewPager2** 연동할 수 없었지만, **ViewPager2** 중첩 스크롤 이슈 해결 방법을 찾아보았다.
+
+### Support nested scrollable elements
+> To support a scroll view inside a ViewPager2 object with the same orientation, **you must call requestDisallowInterceptTouchEvent()** on the ViewPager2 object when you expect to scroll the nested element instead. The [ViewPager2 nested scrolling sample](https://github.com/android/views-widgets-samples/blob/master/ViewPager2/app/src/main/res/layout/item_nested_recyclerviews.xml#L43) demonstrates one way of solving this problem with a versatile [custom wrapper layout](https://github.com/android/views-widgets-samples/blob/master/ViewPager2/app/src/main/java/androidx/viewpager2/integration/testapp/NestedScrollableHost.kt).
+
+### 방법1
+xml 파일에서 중복되는 **ViewPager2** 를 **NestedScrollableHost** 로 감싸주면 해결 완!
+```xml
+<com.ssacproject.thirdweek.NestedScrollableHost
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent">
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</com.ssacproject.thirdweek.NestedScrollableHost>
+```
+
+### 방법2
+**android:nestedScrollingEnabled** 속성을 **true** 로 설정
+```xml
+<androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/viewpager"
+    android:layout_width="match_parent"
+    android:nestedScrollingEnabled="true"
+    android:layout_height="wrap_content" />
+```
+
+<br>
+
+## DataStore
+> **DataStore** 는 **SharedPreferences** 를 대체하기 위해 Jetpack에서 발표한 라이브러리다. **Kotlin coroutine** 과 **Flow** 를 사용하여 비동기적으로, 일관되게 데이터를 저장할 수 있다.
+
+기존에 로그인 성공 시 다음화면으로 **UserInfo** (커스텀 객체)를 intent로 전달했었는데, 전달하지 않고 로컬에 저장해두어 필요 시 유저 정보를 불러오고 싶어 Datastore를 사용했다.
+
+### Preferences DataStore and Proto DataStore
+Preferences DataStore|Proto DataStore|
+|---|---|
+|1. **key-value Pair** 의 형태로 데이터를 저장 <br> 2. **Type-Safety** 제공하지 않음|1. 커스텀 데이터 타입의 데이터를 저장하는데 사용 <br> 2. 미리 정의된 **schema** 를 통하여 **Type-Safety** 를 보장 <br> 3. `app/src/main/proto/` 디렉토리 안의 proto file 의 스키마를 미리 정의해야함 (이 과정이 귀찮아서 1번 사용함 ^____^)|
+
+<br>
+
+# 참고
+[Nested ViewPager2 이슈를 해결해보자 with NestedScorllableHost](https://velog.io/@l2hyunwoo/NestedScrollableHost)
+
+[Preferences Datastore에서 데이터 유지](https://developer.android.com/codelabs/android-preferences-datastore?hl=ko#5)
+
+[DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
+
+[SharedPreferences 대신 쓰는 DataStore](https://kangmin1012.tistory.com/47)
+
+<br>
+
+<details>
+<summary>week2</summary>
+
 # Week2
 <br>
 
@@ -336,8 +585,7 @@ adapter.submitList(it.toMutableList())
 
 [Base 코드 관련 정리 (feat. BaseActivity, BaseFragment)](https://youngest-programming.tistory.com/285)
 
-<br>
-<br>
+</details>
 
 <details>
 <summary>week1</summary>
@@ -705,3 +953,5 @@ MVVM 아키텍처 적용 **[도전과제 3-2]**
 [Databinding 공식문서](https://developer.android.com/topic/libraries/data-binding)
 
 [Android Binding](https://velog.io/@sh1mj1/Android-Binding-ViewBinding-DataBinding)
+
+</details>
