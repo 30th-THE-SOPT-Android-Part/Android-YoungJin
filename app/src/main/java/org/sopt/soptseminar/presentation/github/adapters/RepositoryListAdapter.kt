@@ -9,35 +9,20 @@ import org.sopt.soptseminar.databinding.ItemRepositoryBinding
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.util.ItemTouchHelperListener
 
-class RepositoryListAdapter : ListAdapter<RepositoryInfo, RecyclerView.ViewHolder>(diffCallback),
+class RepositoryListAdapter(
+    private val onItemClick: (RepositoryInfo) -> Unit,
+    private val _onItemMove: (Int, Int) -> Unit,
+    private val _onItemSwipe: (Int) -> Unit
+) : ListAdapter<RepositoryInfo, RecyclerView.ViewHolder>(diffCallback),
     ItemTouchHelperListener {
-    private lateinit var clickListener: OnItemClickListener
-    private lateinit var touchListener: OnItemTouchListener
 
-    interface OnItemClickListener {
-        fun onItemClick(item: RepositoryInfo)
-    }
-
-    interface OnItemTouchListener {
-        fun onItemMove(fromPosition: Int, toPosition: Int)
-        fun onItemSwipe(position: Int)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.clickListener = listener
-    }
-
-    fun setOnItemTouchListener(listener: OnItemTouchListener) {
-        this.touchListener = listener
-    }
-
-    inner class FollowerViewHolder(private val binding: ItemRepositoryBinding) :
+    class FollowerViewHolder(private val binding: ItemRepositoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(repository: RepositoryInfo) {
+        fun bind(repository: RepositoryInfo, onItemClick: (RepositoryInfo) -> Unit) {
             with(binding) {
                 this.repository = repository
                 repositoryContainer.setOnClickListener {
-                    clickListener.onItemClick(repository)
+                    onItemClick(repository)
                 }
             }
         }
@@ -55,17 +40,17 @@ class RepositoryListAdapter : ListAdapter<RepositoryInfo, RecyclerView.ViewHolde
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val data = currentList[position]
         when (viewHolder) {
-            is FollowerViewHolder -> viewHolder.bind(data)
+            is FollowerViewHolder -> viewHolder.bind(data, onItemClick)
         }
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-        touchListener.onItemMove(fromPosition, toPosition)
+        _onItemMove(fromPosition, toPosition)
         return true
     }
 
     override fun onItemSwipe(position: Int) {
-        touchListener.onItemSwipe(position)
+        _onItemSwipe(position)
     }
 
     companion object {

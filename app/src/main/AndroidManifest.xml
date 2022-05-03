@@ -15,7 +15,7 @@
         android:theme="@style/Theme.SoptSeminar">
         <activity
             android:name=".presentation.splash.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,8 +24,7 @@
         <activity
             android:name=".presentation.sign.screens.SignInActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.sign.screens.SignUpActivity"
             android:exported="false"

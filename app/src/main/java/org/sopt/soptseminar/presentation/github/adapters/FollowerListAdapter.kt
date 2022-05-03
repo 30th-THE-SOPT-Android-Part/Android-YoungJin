@@ -9,20 +9,12 @@ import com.bumptech.glide.Glide
 import org.sopt.soptseminar.databinding.ItemFollowerBinding
 import org.sopt.soptseminar.models.FollowerInfo
 
-class FollowerListAdapter : ListAdapter<FollowerInfo, RecyclerView.ViewHolder>(diffCallback) {
-    private lateinit var listener: OnItemClickListener
+class FollowerListAdapter(private val onItemClick: (FollowerInfo) -> Unit) :
+    ListAdapter<FollowerInfo, RecyclerView.ViewHolder>(diffCallback) {
 
-    interface OnItemClickListener {
-        fun onItemClick(item: FollowerInfo)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
-    }
-
-    inner class FollowerViewHolder(private val binding: ItemFollowerBinding) :
+    class FollowerViewHolder(private val binding: ItemFollowerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(follower: FollowerInfo) {
+        fun bind(follower: FollowerInfo, onItemClick: (FollowerInfo) -> Unit) {
             with(binding) {
                 this.follower = follower
 
@@ -30,7 +22,7 @@ class FollowerListAdapter : ListAdapter<FollowerInfo, RecyclerView.ViewHolder>(d
                 profileImage.clipToOutline = true
 
                 profileImage.setOnClickListener {
-                    listener.onItemClick(follower)
+                    onItemClick(follower)
                 }
             }
         }
@@ -48,7 +40,7 @@ class FollowerListAdapter : ListAdapter<FollowerInfo, RecyclerView.ViewHolder>(d
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val data = currentList[position]
         when (viewHolder) {
-            is FollowerViewHolder -> viewHolder.bind(data)
+            is FollowerViewHolder -> viewHolder.bind(data, onItemClick)
         }
     }
 

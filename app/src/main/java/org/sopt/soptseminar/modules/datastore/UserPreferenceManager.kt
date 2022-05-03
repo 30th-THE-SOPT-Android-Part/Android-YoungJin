@@ -35,7 +35,7 @@ class UserPreferenceManager @Inject constructor(@ApplicationContext context: Con
             // 임시로 유저 이름이 존재하지 않는 경우, 미가입자로 판단
             if (preferences[KEY_NAME] == null) null
             else UserInfo(
-                preferences[KEY_NAME] ?: "",
+                preferences[KEY_NAME]!!,
                 preferences[KEY_AGE] ?: 0,
                 preferences[KEY_MBTI] ?: "",
                 preferences[KEY_PROFILE],

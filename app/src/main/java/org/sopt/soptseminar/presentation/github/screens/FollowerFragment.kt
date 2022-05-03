@@ -15,8 +15,7 @@ import org.sopt.soptseminar.presentation.github.adapters.FollowerListAdapter
 import org.sopt.soptseminar.presentation.github.viewmodels.GithubViewModel
 
 @AndroidEntryPoint
-class FollowerFragment : BaseFragment<FragmentFollowerBinding>(R.layout.fragment_follower),
-    FollowerListAdapter.OnItemClickListener {
+class FollowerFragment : BaseFragment<FragmentFollowerBinding>(R.layout.fragment_follower) {
     private val viewModel: GithubViewModel by hiltNavGraphViewModels(R.id.github_nav_graph)
     private var followerViewType: String = GithubDetailViewType.FOLLOWER.name
 
@@ -41,14 +40,13 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>(R.layout.fragment
             else -> viewModel.getFollowing()
         }
 
-        FollowerListAdapter().run {
+        FollowerListAdapter(::onItemClick).run {
             binding.followerList.adapter = this
-            setOnItemClickListener(this@FollowerFragment)
             submitList(items)
         }
     }
 
-    override fun onItemClick(item: FollowerInfo) {
+    private fun onItemClick(item: FollowerInfo) {
         findNavController().navigate(
             R.id.action_follower_to_follower_detail, bundleOf(
                 ARG_FOLLOWER_INFO to item
