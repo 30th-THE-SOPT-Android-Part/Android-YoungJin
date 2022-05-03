@@ -34,7 +34,7 @@
             android:name=".presentation.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.github.screens.GithubProfileActivity"
+            android:name=".presentation.github.screens.OldGithubProfileActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.github.screens.FollowerDetailActivity"

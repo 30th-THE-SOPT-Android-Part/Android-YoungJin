@@ -34,43 +34,35 @@ class ProfileViewModel @Inject constructor(
         userInfo.value = userPreferenceRepository.getUsersPreference().first()
     }
 
-    fun fetchGithubList() { // TODO 코드 정리 후 init 블록 안에서 호출..
+    // TODO delete
+    fun fetchGithubList() {
         followers = profileRepo.fetchGithubFollowers().toMutableList()
         following = profileRepo.fetchGithubFollowing().toMutableList()
         repositories.value = profileRepo.fetchGithubRepositories().toMutableList()
-    }
-
-    fun moveRepository(fromPosition: Int, toPosition: Int) {
-        repositories.value = repositories.value?.apply {
-            val origin = this[fromPosition]
-            removeAt(fromPosition)
-            add(toPosition, origin)
-        }
-    }
-
-    fun removeRepository(position: Int) {
-        repositories.value = repositories.value?.apply {
-            removeAt(position)
-        }
     }
 
     fun setUserInfo(userInfo: UserInfo) {
         this.userInfo.value = userInfo
     }
 
+    // TODO delete
     fun setFollowers(followers: List<FollowerInfo>?) {
         this.followers = followers?.toMutableList()
     }
 
+    // TODO delete
     fun setFollowing(following: List<FollowerInfo>?) {
         this.following = following?.toMutableList()
     }
 
+    // TODO delete
     fun setRepositories(repositories: List<RepositoryInfo>?) {
         this.repositories.value = repositories?.toMutableList()
     }
 
     fun getUserInfo(): LiveData<UserInfo> = userInfo
+
+    // TODO delete
     fun getFollower(): List<FollowerInfo>? = followers
     fun getFollowing(): List<FollowerInfo>? = following
     fun getRepositories(): LiveData<MutableList<RepositoryInfo>> = repositories

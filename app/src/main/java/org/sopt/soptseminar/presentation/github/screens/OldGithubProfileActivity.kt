@@ -17,7 +17,7 @@ import org.sopt.soptseminar.presentation.profile.ProfileViewModel
 import org.sopt.soptseminar.presentation.sign.screens.SignInActivity
 
 @AndroidEntryPoint
-class GithubProfileActivity :
+class OldGithubProfileActivity :
     BaseActivity<ActivityGithubProfileBinding>(R.layout.activity_github_profile) {
     private val viewModel: ProfileViewModel by viewModels()
 
@@ -51,7 +51,7 @@ class GithubProfileActivity :
 
     private fun initLayout() {
         binding.githubDetail.run {
-            adapter = GithubAdapter(this@GithubProfileActivity)
+            adapter = GithubAdapter(this@OldGithubProfileActivity)
             setCurrentItem(position, false)
         }
 
