@@ -29,6 +29,6 @@
             app:itemRippleColor="@color/gray_300"
             app:itemTextColor="@color/selector_bottom_navi"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/bottom_nav" />
+            app:menu="@menu/bottom_nav_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
