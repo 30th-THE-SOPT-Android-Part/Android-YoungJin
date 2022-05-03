@@ -24,17 +24,17 @@ class UserPreferenceManager @Inject constructor(@ApplicationContext context: Con
     UserPreferenceRepository {
     private val dataStore = context.dataStore
 
-    override suspend fun getUsersPreference(): Flow<UserInfo> = dataStore.data
+    override suspend fun getUsersPreference(): Flow<UserInfo?> = dataStore.data
         .catch { exception ->
-            // dataStore.data throws an IOException when an error is encountered when reading data
             if (exception is IOException) {
                 emit(emptyPreferences())
             } else {
                 throw exception
             }
         }.map { preferences ->
-            // Get our show completed value, defaulting to false if not set:
-            UserInfo(
+            // 임시로 유저 이름이 존재하지 않는 경우, 미가입자로 판단
+            if (preferences[KEY_NAME] == null) null
+            else UserInfo(
                 preferences[KEY_NAME] ?: "",
                 preferences[KEY_AGE] ?: 0,
                 preferences[KEY_MBTI] ?: "",

@@ -14,28 +14,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SoptSeminar">
         <activity
-            android:name=".presentation.sign.screens.SignInActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name=".presentation.sign.screens.SignUpActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name=".presentation.MainActivity"
-            android:exported="true">
+            android:name=".presentation.splash.SplashActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".presentation.sign.screens.SignInActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
+            android:name=".presentation.sign.screens.SignUpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.github.screens.GithubProfileActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.github.screens.FollowerDetailActivity"
             android:exported="false" />
