@@ -1,4 +1,4 @@
-package org.sopt.soptseminar.data.api
+package org.sopt.soptseminar.data.service
 
 import org.sopt.soptseminar.data.models.*
 import retrofit2.Response

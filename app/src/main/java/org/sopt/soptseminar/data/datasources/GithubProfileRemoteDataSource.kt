@@ -1,6 +1,6 @@
 package org.sopt.soptseminar.data.datasources
 
-import org.sopt.soptseminar.data.api.GithubService
+import org.sopt.soptseminar.data.service.GithubService
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.models.RepositoryInfo
 import javax.inject.Inject

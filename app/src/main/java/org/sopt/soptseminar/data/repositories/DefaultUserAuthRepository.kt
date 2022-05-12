@@ -1,6 +1,6 @@
 package org.sopt.soptseminar.data.repositories
 
-import org.sopt.soptseminar.data.api.SoptService
+import org.sopt.soptseminar.data.service.SoptService
 import org.sopt.soptseminar.data.models.RequestSignIn
 import org.sopt.soptseminar.domain.UserAuthRepository
 import org.sopt.soptseminar.models.UserInfo

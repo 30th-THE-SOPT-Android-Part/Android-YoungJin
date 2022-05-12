@@ -4,10 +4,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.sopt.soptseminar.data.api.GithubService
-import org.sopt.soptseminar.data.api.GithubServiceCreator
-import org.sopt.soptseminar.data.api.SoptService
-import org.sopt.soptseminar.data.api.SoptServiceCreator
+import org.sopt.soptseminar.data.service.GithubService
+import org.sopt.soptseminar.data.service.GithubServiceCreator
+import org.sopt.soptseminar.data.service.SoptService
+import org.sopt.soptseminar.data.service.SoptServiceCreator
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
