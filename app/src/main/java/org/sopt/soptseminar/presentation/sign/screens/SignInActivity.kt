@@ -37,9 +37,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
 
     private fun addObservers() {
         viewModel.getValidSignInput().observe(this) { isValid ->
-            if (isValid) {
-                // TODO 이메일 -> 이름 띄우기
-                showToast(String.format(getString(R.string.sign_in_success_toast_text), binding.idInput.text.toString()))
+            if (isValid == true) {
+                showToast(String.format(getString(R.string.sign_in_success_toast_text), viewModel.getUserName().value))
                 moveToHome()
             } else {
                 showToast(getString(R.string.check_sign_in_input_toast_text))

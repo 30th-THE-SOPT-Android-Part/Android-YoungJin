@@ -30,7 +30,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
 
     private fun addObservers() {
         viewModel.getValidSignInput().observe(this) { isValid ->
-            if (isValid) {
+            if (isValid == true) {
                 moveToSignIn()
             } else {
                 showToast(getString(R.string.sign_up_failure_toast_text))

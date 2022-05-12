@@ -12,24 +12,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignViewModel @Inject constructor(
-    private val userAuthRepository: UserAuthRepository
+    private val userAuthRepository: UserAuthRepository,
 ) : ViewModel() {
-    private val userName = MutableLiveData<String>()
+    private val userName = MutableLiveData<String?>()
     private val userId = MutableLiveData<String>()
     private val userPassword = MutableLiveData<String>()
-    private val isValidSignInput = MutableLiveData<Boolean>()
+    private val isValidSignInput = MutableLiveData<Boolean?>()
 
     fun signIn() {
         val isValid = !(userId.value.isNullOrEmpty() || userPassword.value.isNullOrEmpty())
         if (!isValid) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            isValidSignInput.postValue(
-                userAuthRepository.signIn(
-                    userId.value!!,
-                    userPassword.value!!
-                )
+            val response = userAuthRepository.signIn(
+                userId.value!!,
+                userPassword.value!!
             )
+
+            userName.postValue(response.second)
+            isValidSignInput.postValue(response.first)
         }
     }
 
@@ -68,8 +69,9 @@ class SignViewModel @Inject constructor(
     }
 
     fun getUserId(): LiveData<String> = userId
+    fun getUserName(): LiveData<String?> = userName
     fun getUserPassword(): LiveData<String> = userPassword
-    fun getValidSignInput(): LiveData<Boolean> = isValidSignInput
+    fun getValidSignInput(): LiveData<Boolean?> = isValidSignInput
 
     companion object {
         private const val TAG = "SignViewModel"

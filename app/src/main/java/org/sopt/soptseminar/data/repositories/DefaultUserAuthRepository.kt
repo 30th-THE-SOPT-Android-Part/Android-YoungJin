@@ -1,21 +1,21 @@
 package org.sopt.soptseminar.data.repositories
 
-import org.sopt.soptseminar.data.services.SoptService
 import org.sopt.soptseminar.data.models.sign.RequestSignIn
-import org.sopt.soptseminar.domain.repositories.UserAuthRepository
+import org.sopt.soptseminar.data.services.SoptService
 import org.sopt.soptseminar.domain.models.UserInfo
+import org.sopt.soptseminar.domain.repositories.UserAuthRepository
 import org.sopt.soptseminar.modules.datastore.UserPreferenceRepository
 import javax.inject.Inject
 
 class DefaultUserAuthRepository @Inject constructor(
     private val soptService: SoptService,
-    private val userPreferenceRepository: UserPreferenceRepository
+    private val userPreferenceRepository: UserPreferenceRepository,
 ) : UserAuthRepository {
-    override suspend fun signIn(email: String, password: String): Boolean {
+    override suspend fun signIn(email: String, password: String): Pair<Boolean, String?> {
         runCatching {
             soptService.postSignIn(RequestSignIn(email, password))
         }.fold({
-            val data = it.body()?.data ?: return false // TODO
+            val data = it.body()?.data ?: return Pair(false, null)
             userPreferenceRepository.setUserPreference(
                 UserInfo(
                     name = data.name,
@@ -26,10 +26,10 @@ class DefaultUserAuthRepository @Inject constructor(
                     email = "cyjin6@naver.com"
                 )
             )
-            return true
+            return Pair(true, data.name)
         }, {
             it.printStackTrace()
-            return false
+            return Pair(false, null)
         })
     }
 
