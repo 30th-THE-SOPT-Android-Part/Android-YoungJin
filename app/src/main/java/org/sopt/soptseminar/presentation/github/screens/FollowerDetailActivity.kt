@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivityFollowerDetailBinding
-import org.sopt.soptseminar.models.FollowerInfo
+import org.sopt.soptseminar.domain.models.github.FollowerInfo
 import org.sopt.soptseminar.presentation.github.viewmodels.FollowerDetailViewModel
 
 @AndroidEntryPoint

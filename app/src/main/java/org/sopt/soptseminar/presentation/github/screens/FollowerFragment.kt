@@ -9,8 +9,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseFragment
 import org.sopt.soptseminar.databinding.FragmentFollowerBinding
-import org.sopt.soptseminar.models.FollowerInfo
-import org.sopt.soptseminar.models.types.GithubDetailViewType
+import org.sopt.soptseminar.domain.models.github.FollowerInfo
+import org.sopt.soptseminar.presentation.types.GithubDetailViewType
 import org.sopt.soptseminar.presentation.github.adapters.FollowerListAdapter
 import org.sopt.soptseminar.presentation.github.viewmodels.GithubViewModel
 

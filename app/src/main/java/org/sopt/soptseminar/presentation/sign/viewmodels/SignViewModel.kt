@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.sopt.soptseminar.domain.UserAuthRepository
+import org.sopt.soptseminar.domain.repositories.UserAuthRepository
 import javax.inject.Inject
 
 @HiltViewModel

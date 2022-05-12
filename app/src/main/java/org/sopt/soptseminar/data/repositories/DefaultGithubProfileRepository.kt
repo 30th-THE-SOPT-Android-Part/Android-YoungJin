@@ -1,9 +1,9 @@
 package org.sopt.soptseminar.data.repositories
 
 import org.sopt.soptseminar.data.datasources.GithubProfileRemoteDataSource
-import org.sopt.soptseminar.domain.GithubProfileRepository
-import org.sopt.soptseminar.models.FollowerInfo
-import org.sopt.soptseminar.models.RepositoryInfo
+import org.sopt.soptseminar.domain.repositories.GithubProfileRepository
+import org.sopt.soptseminar.domain.models.github.FollowerInfo
+import org.sopt.soptseminar.domain.models.github.RepositoryInfo
 import javax.inject.Inject
 
 class DefaultGithubProfileRepository @Inject constructor(

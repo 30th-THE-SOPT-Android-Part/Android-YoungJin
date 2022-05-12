@@ -1,4 +1,4 @@
-package org.sopt.soptseminar.domain
+package org.sopt.soptseminar.domain.repositories
 
 interface UserAuthRepository {
     suspend fun signIn(email: String, password: String): Boolean

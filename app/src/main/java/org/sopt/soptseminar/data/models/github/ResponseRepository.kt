@@ -1,7 +1,7 @@
 package org.sopt.soptseminar.data.models.github
 
 import com.google.gson.annotations.SerializedName
-import org.sopt.soptseminar.models.RepositoryInfo
+import org.sopt.soptseminar.domain.models.github.RepositoryInfo
 
 data class ResponseRepository(
     val id: Int,

@@ -1,8 +1,8 @@
 package org.sopt.soptseminar.data.datasources
 
-import org.sopt.soptseminar.data.service.GithubService
-import org.sopt.soptseminar.models.FollowerInfo
-import org.sopt.soptseminar.models.RepositoryInfo
+import org.sopt.soptseminar.data.services.GithubService
+import org.sopt.soptseminar.domain.models.github.FollowerInfo
+import org.sopt.soptseminar.domain.models.github.RepositoryInfo
 import javax.inject.Inject
 
 class GithubProfileRemoteDataSource @Inject constructor(private val githubService: GithubService) {

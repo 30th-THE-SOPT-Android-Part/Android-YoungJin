@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.sopt.soptseminar.models.FollowerInfo
-import org.sopt.soptseminar.models.UserInfo
+import org.sopt.soptseminar.domain.models.github.FollowerInfo
+import org.sopt.soptseminar.domain.models.UserInfo
 import org.sopt.soptseminar.modules.datastore.UserPreferenceRepository
 import javax.inject.Inject
 

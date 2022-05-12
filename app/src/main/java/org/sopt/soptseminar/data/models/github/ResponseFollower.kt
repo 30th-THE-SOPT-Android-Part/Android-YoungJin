@@ -1,7 +1,7 @@
 package org.sopt.soptseminar.data.models.github
 
 import com.google.gson.annotations.SerializedName
-import org.sopt.soptseminar.models.FollowerInfo
+import org.sopt.soptseminar.domain.models.github.FollowerInfo
 
 data class ResponseFollower(
     val id: Int,

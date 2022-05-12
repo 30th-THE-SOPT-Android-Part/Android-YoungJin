@@ -1,7 +1,7 @@
-package org.sopt.soptseminar.domain
+package org.sopt.soptseminar.domain.repositories
 
-import org.sopt.soptseminar.models.FollowerInfo
-import org.sopt.soptseminar.models.RepositoryInfo
+import org.sopt.soptseminar.domain.models.github.FollowerInfo
+import org.sopt.soptseminar.domain.models.github.RepositoryInfo
 
 interface GithubProfileRepository {
     suspend fun fetchGithubFollowers(userName: String): List<FollowerInfo>?

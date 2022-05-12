@@ -1,4 +1,4 @@
-package org.sopt.soptseminar.data.service
+package org.sopt.soptseminar.data.services
 
 import org.sopt.soptseminar.data.models.*
 import org.sopt.soptseminar.data.models.sign.RequestSignIn
