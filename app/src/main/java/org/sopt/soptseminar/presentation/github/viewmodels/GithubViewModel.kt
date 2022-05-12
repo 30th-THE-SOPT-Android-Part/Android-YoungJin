@@ -38,6 +38,7 @@ class GithubViewModel @Inject constructor(
 
     private fun fetchGithubList() {
         viewModelScope.launch(Dispatchers.IO) {
+            // TODO UserInfo에 github 전용 username 추가 후, userInfo.githubUserName 으로 접근
             followers.postValue(profileRepo.fetchGithubFollowers("youngjinc"))
             following.postValue(profileRepo.fetchGithubFollowing("youngjinc"))
             repositories.postValue(profileRepo.fetchGithubRepositories("youngjinc")
