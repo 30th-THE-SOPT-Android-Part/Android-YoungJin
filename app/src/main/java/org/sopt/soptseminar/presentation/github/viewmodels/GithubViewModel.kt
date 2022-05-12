@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.sopt.soptseminar.domain.GithubProfileRepository
@@ -20,8 +21,8 @@ class GithubViewModel @Inject constructor(
     private val userPreferenceRepository: UserPreferenceRepository,
 ) : ViewModel() {
     private val userInfo = MutableLiveData<UserInfo>()
-    private var followers: MutableList<FollowerInfo>? = mutableListOf()
-    private var following: MutableList<FollowerInfo>? = mutableListOf()
+    private var followers = MutableLiveData<List<FollowerInfo>?>(mutableListOf())
+    private var following = MutableLiveData<List<FollowerInfo>?>(mutableListOf())
     private var repositories = MutableLiveData<MutableList<RepositoryInfo>>(mutableListOf())
 
     init {
@@ -36,9 +37,12 @@ class GithubViewModel @Inject constructor(
     }
 
     private fun fetchGithubList() {
-        followers = profileRepo.fetchGithubFollowers().toMutableList()
-        following = profileRepo.fetchGithubFollowing().toMutableList()
-        repositories.value = profileRepo.fetchGithubRepositories().toMutableList()
+        viewModelScope.launch(Dispatchers.IO) {
+            followers.postValue(profileRepo.fetchGithubFollowers("youngjinc"))
+            following.postValue(profileRepo.fetchGithubFollowing("youngjinc"))
+            repositories.postValue(profileRepo.fetchGithubRepositories("youngjinc")
+                ?.toMutableList())
+        }
     }
 
     fun moveRepository(fromPosition: Int, toPosition: Int) {
@@ -56,7 +60,7 @@ class GithubViewModel @Inject constructor(
     }
 
     fun getUserInfo(): LiveData<UserInfo> = userInfo
-    fun getFollower(): List<FollowerInfo>? = followers
-    fun getFollowing(): List<FollowerInfo>? = following
+    fun getFollower(): LiveData<List<FollowerInfo>?> = followers
+    fun getFollowing(): LiveData<List<FollowerInfo>?> = following
     fun getRepositories(): LiveData<MutableList<RepositoryInfo>> = repositories
 }

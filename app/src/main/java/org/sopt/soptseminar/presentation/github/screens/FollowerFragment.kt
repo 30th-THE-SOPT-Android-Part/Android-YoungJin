@@ -18,6 +18,7 @@ import org.sopt.soptseminar.presentation.github.viewmodels.GithubViewModel
 class FollowerFragment : BaseFragment<FragmentFollowerBinding>(R.layout.fragment_follower) {
     private val viewModel: GithubViewModel by hiltNavGraphViewModels(R.id.github_nav_graph)
     private var followerViewType: String = GithubDetailViewType.FOLLOWER.name
+    private val followerListAdapter = FollowerListAdapter(::onItemClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,17 +33,24 @@ class FollowerFragment : BaseFragment<FragmentFollowerBinding>(R.layout.fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
+        addObservers()
     }
 
     private fun initLayout() {
-        val items = when (followerViewType) {
-            GithubDetailViewType.FOLLOWER.name -> viewModel.getFollower()
-            else -> viewModel.getFollowing()
+        binding.followerList.adapter = followerListAdapter
+    }
+
+    private fun addObservers() {
+        viewModel.getFollower().observe(viewLifecycleOwner) {
+            if (followerViewType == GithubDetailViewType.FOLLOWER.name) {
+                followerListAdapter.submitList(it?.toMutableList())
+            }
         }
 
-        FollowerListAdapter(::onItemClick).run {
-            binding.followerList.adapter = this
-            submitList(items)
+        viewModel.getFollowing().observe(viewLifecycleOwner) {
+            if (followerViewType == GithubDetailViewType.FOLLOWING.name) {
+                followerListAdapter.submitList(it?.toMutableList())
+            }
         }
     }
 

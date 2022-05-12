@@ -9,15 +9,15 @@ import javax.inject.Inject
 class DefaultGithubProfileRepository @Inject constructor(
     private val remoteDataSource: GithubProfileRemoteDataSource
 ) : GithubProfileRepository {
-    override fun fetchGithubFollowers(): List<FollowerInfo> {
-        return remoteDataSource.fetchFollowers()
+    override suspend fun fetchGithubFollowers(userName: String): List<FollowerInfo>? {
+        return remoteDataSource.fetchFollowers(userName)
     }
 
-    override fun fetchGithubFollowing(): List<FollowerInfo> {
-        return remoteDataSource.fetchFollowing()
+    override suspend fun fetchGithubFollowing(userName: String): List<FollowerInfo>? {
+        return remoteDataSource.fetchFollowing(userName)
     }
 
-    override fun fetchGithubRepositories(): List<RepositoryInfo> {
-        return remoteDataSource.fetchRepositories()
+    override suspend fun fetchGithubRepositories(userName: String): List<RepositoryInfo>? {
+        return remoteDataSource.fetchRepositories(userName)
     }
 }
