@@ -1,6 +1,6 @@
 package org.sopt.soptseminar.domain
 
 interface UserAuthRepository {
-    fun signIn()
-    fun signUp()
+    suspend fun signIn(email: String, password: String): Boolean
+    suspend fun signUp(name: String, email: String, password: String): Boolean
 }
