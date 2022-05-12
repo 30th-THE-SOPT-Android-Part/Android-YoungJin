@@ -1,4 +1,4 @@
-package org.sopt.soptseminar.data.models
+package org.sopt.soptseminar.data.models.sign
 
 data class ResponseSignIn(
     val name: String,

@@ -1,7 +1,7 @@
 package org.sopt.soptseminar.data.repositories
 
 import org.sopt.soptseminar.data.service.SoptService
-import org.sopt.soptseminar.data.models.RequestSignIn
+import org.sopt.soptseminar.data.models.sign.RequestSignIn
 import org.sopt.soptseminar.domain.UserAuthRepository
 import org.sopt.soptseminar.models.UserInfo
 import org.sopt.soptseminar.modules.datastore.UserPreferenceRepository
