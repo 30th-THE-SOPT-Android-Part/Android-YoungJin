@@ -36,8 +36,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     private fun addObservers() {
-        viewModel.getValidSignInput().observe(this) { isValid ->
-            if (isValid == true) {
+        viewModel.getSuccessSign().observe(this) { isSuccess ->
+            if (isSuccess == true) {
                 showToast(String.format(getString(R.string.sign_in_success_toast_text), viewModel.getUserName().value))
                 moveToHome()
             } else {

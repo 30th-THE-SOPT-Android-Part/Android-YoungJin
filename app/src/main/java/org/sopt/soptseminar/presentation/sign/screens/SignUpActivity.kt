@@ -29,8 +29,8 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
     }
 
     private fun addObservers() {
-        viewModel.getValidSignInput().observe(this) { isValid ->
-            if (isValid == true) {
+        viewModel.getSuccessSign().observe(this) { isSuccess ->
+            if (isSuccess == true) {
                 moveToSignIn()
             } else {
                 showToast(getString(R.string.sign_up_failure_toast_text))

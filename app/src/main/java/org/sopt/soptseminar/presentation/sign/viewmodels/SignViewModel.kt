@@ -17,7 +17,7 @@ class SignViewModel @Inject constructor(
     private val userName = MutableLiveData<String?>()
     private val userId = MutableLiveData<String>()
     private val userPassword = MutableLiveData<String>()
-    private val isValidSignInput = MutableLiveData<Boolean?>()
+    private val isSuccessSign = MutableLiveData<Boolean?>()
 
     fun signIn() {
         val isValid = !(userId.value.isNullOrEmpty() || userPassword.value.isNullOrEmpty())
@@ -30,7 +30,7 @@ class SignViewModel @Inject constructor(
             )
 
             userName.postValue(response.second)
-            isValidSignInput.postValue(response.first)
+            isSuccessSign.postValue(response.first)
         }
     }
 
@@ -40,7 +40,7 @@ class SignViewModel @Inject constructor(
         if (!isValid) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            isValidSignInput.postValue(
+            isSuccessSign.postValue(
                 userAuthRepo.signUp(
                     userName.value!!,
                     userId.value!!,
@@ -71,7 +71,7 @@ class SignViewModel @Inject constructor(
     fun getUserId(): LiveData<String> = userId
     fun getUserName(): LiveData<String?> = userName
     fun getUserPassword(): LiveData<String> = userPassword
-    fun getValidSignInput(): LiveData<Boolean?> = isValidSignInput
+    fun getSuccessSign(): LiveData<Boolean?> = isSuccessSign
 
     companion object {
         private const val TAG = "SignViewModel"
