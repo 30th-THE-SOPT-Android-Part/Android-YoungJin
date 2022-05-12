@@ -3,6 +3,14 @@
     <string name="sopt">SOPT</string>
     <string name="sopt_ko">솝트</string>
 
+    <!-- Global -->
+    <string name="upload">등록</string>
+
+    <!-- Navigation -->
+    <string name="tab_profile">PROFILE</string>
+    <string name="tab_github">GITHUB</string>
+    <string name="tab_camera">CAMERA</string>
+
     <!-- Sign -->
     <string name="sign_in">로그인</string>
     <string name="sign_up">회원가입</string>
@@ -47,5 +55,8 @@
     <string name="github_detail_follower">Followers</string>
     <string name="github_detail_following">Following</string>
     <string name="github_detail_repository">Repositories</string>
+
+    <!-- Gallery -->
+    <string name="gallery_image_upload_title">이미지 업로드</string>
 
 </resources>

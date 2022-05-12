@@ -4,9 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
@@ -15,11 +12,12 @@ import org.sopt.soptseminar.databinding.ActivityGithubProfileBinding
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.models.types.GithubDetailViewType
-import org.sopt.soptseminar.presentation.home.ProfileViewModel
+import org.sopt.soptseminar.presentation.github.adapters.GithubAdapter
+import org.sopt.soptseminar.presentation.profile.ProfileViewModel
 import org.sopt.soptseminar.presentation.sign.screens.SignInActivity
 
 @AndroidEntryPoint
-class GithubProfileActivity :
+class OldGithubProfileActivity :
     BaseActivity<ActivityGithubProfileBinding>(R.layout.activity_github_profile) {
     private val viewModel: ProfileViewModel by viewModels()
 
@@ -53,7 +51,7 @@ class GithubProfileActivity :
 
     private fun initLayout() {
         binding.githubDetail.run {
-            adapter = GithubDetailAdapter(this@GithubProfileActivity)
+            adapter = GithubAdapter(this@OldGithubProfileActivity)
             setCurrentItem(position, false)
         }
 
@@ -78,18 +76,6 @@ class GithubProfileActivity :
             )
             setResult(RESULT_OK, intent)
             super.onBackPressed()
-        }
-    }
-
-    inner class GithubDetailAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
-        override fun getItemCount(): Int = GithubDetailViewType.values().size
-
-        override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> FollowerFragment.newInstance(GithubDetailViewType.FOLLOWER)
-                1 -> RepositoryFragment()
-                else -> FollowerFragment.newInstance(GithubDetailViewType.FOLLOWING)
-            }
         }
     }
 

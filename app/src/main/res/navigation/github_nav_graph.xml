@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/github_nav_graph"
+    app:startDestination="@id/github_fragment">
+
+    <fragment
+        android:id="@+id/github_fragment"
+        android:name="org.sopt.soptseminar.presentation.github.screens.GithubFragment"
+        android:label="githubFragment"
+        tools:layout="@layout/fragment_github">
+        <action
+            android:id="@+id/action_follower_to_follower_detail"
+            app:destination="@id/follower_detail_activity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/follower_fragment"
+        android:name="org.sopt.soptseminar.presentation.github.screens.FollowerFragment"
+        android:label="followerDetailFragment"
+        tools:layout="@layout/fragment_follower" />
+
+    <activity
+        android:id="@+id/follower_detail_activity"
+        android:name="org.sopt.soptseminar.presentation.github.screens.FollowerDetailActivity"
+        android:label="followerDetailActivity"
+        tools:layout="@layout/activity_follower_detail" />
+</navigation>

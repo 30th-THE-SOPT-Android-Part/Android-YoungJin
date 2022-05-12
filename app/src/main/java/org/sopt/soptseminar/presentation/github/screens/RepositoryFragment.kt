@@ -4,7 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
@@ -12,14 +12,12 @@ import org.sopt.soptseminar.base.BaseFragment
 import org.sopt.soptseminar.databinding.FragmentRepositoryBinding
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.presentation.github.adapters.RepositoryListAdapter
-import org.sopt.soptseminar.presentation.home.ProfileViewModel
+import org.sopt.soptseminar.presentation.github.viewmodels.GithubViewModel
 import org.sopt.soptseminar.util.ItemTouchHelperCallback
 
 @AndroidEntryPoint
-class RepositoryFragment : BaseFragment<FragmentRepositoryBinding>(R.layout.fragment_repository),
-    RepositoryListAdapter.OnItemClickListener,
-    RepositoryListAdapter.OnItemTouchListener {
-    private val viewModel: ProfileViewModel by activityViewModels()
+class RepositoryFragment : BaseFragment<FragmentRepositoryBinding>(R.layout.fragment_repository) {
+    private val viewModel: GithubViewModel by hiltNavGraphViewModels(R.id.github_nav_graph)
     private lateinit var adapter: RepositoryListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,10 +27,8 @@ class RepositoryFragment : BaseFragment<FragmentRepositoryBinding>(R.layout.frag
     }
 
     private fun initLayout() {
-        adapter = RepositoryListAdapter().apply {
+        adapter = RepositoryListAdapter(::onItemClick, ::onItemMove, ::onItemSwipe).apply {
             binding.repositoryList.adapter = this
-            setOnItemClickListener(this@RepositoryFragment)
-            setOnItemTouchListener(this@RepositoryFragment)
             ItemTouchHelper(ItemTouchHelperCallback(this)).attachToRecyclerView(binding.repositoryList)
         }
     }
@@ -44,15 +40,15 @@ class RepositoryFragment : BaseFragment<FragmentRepositoryBinding>(R.layout.frag
         }
     }
 
-    override fun onItemClick(item: RepositoryInfo) {
+    private fun onItemClick(item: RepositoryInfo) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.url)))
     }
 
-    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+    private fun onItemMove(fromPosition: Int, toPosition: Int) {
         viewModel.moveRepository(fromPosition, toPosition)
     }
 
-    override fun onItemSwipe(position: Int) {
+    private fun onItemSwipe(position: Int) {
         viewModel.removeRepository(position)
     }
 

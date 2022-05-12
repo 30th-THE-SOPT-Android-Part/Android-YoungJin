@@ -3,6 +3,7 @@
     package="org.sopt.soptseminar">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".SoptSeminarApplication"
@@ -13,28 +14,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SoptSeminar">
         <activity
-            android:name=".presentation.sign.screens.SignInActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name=".presentation.sign.screens.SignUpActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name=".presentation.home.HomeActivity"
+            android:name=".presentation.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".presentation.github.screens.GithubProfileActivity"
+            android:name=".presentation.sign.screens.SignInActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.sign.screens.SignUpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.MainActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".presentation.github.screens.OldGithubProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.github.screens.FollowerDetailActivity"
             android:exported="false" />

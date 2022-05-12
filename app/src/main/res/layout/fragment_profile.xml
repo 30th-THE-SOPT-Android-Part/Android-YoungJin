@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.home.OldHomeActivity">
+    tools:context=".presentation.profile.ProfileFragment">
 
     <data>
 
@@ -84,79 +84,18 @@
                     app:layout_constraintTop_toBottomOf="@id/profile_img"
                     tools:text="최영진" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing20"
+                    android:layout_marginTop="@dimen/spacingMicro"
+                    android:fontFamily="@font/montserrat_r"
+                    android:text="@{viewModel.userInfo.email}"
+                    android:textColor="@color/gray_300"
+                    android:textSize="@dimen/typographyDetail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/name">
-
-                    <LinearLayout
-                        android:id="@+id/follower_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/spacingLarge"
-                        android:onClick="moveToGithubProfile"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toStartOf="@id/repository_container"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/follower_count"
-                            style="@style/Home.GitInfo.Count.Style"
-                            android:text="@{Integer.toString(viewModel.follower.size())}"
-                            tools:text="10" />
-
-                        <TextView
-                            style="@style/Home.GitInfo.Label.Style"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Followers" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/repository_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="moveToGithubProfile"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/repository_count"
-                            style="@style/Home.GitInfo.Count.Style"
-                            android:text="@{Integer.toString(viewModel.repositories.size())}"
-                            tools:text="10" />
-
-                        <TextView
-                            style="@style/Home.GitInfo.Label.Style"
-                            android:text="Repositories" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/following_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/spacingLarge"
-                        android:onClick="moveToGithubProfile"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toEndOf="@id/repository_container"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/following_count"
-                            style="@style/Home.GitInfo.Count.Style"
-                            android:text="@{Integer.toString(viewModel.following.size())}"
-                            tools:text="10" />
-
-                        <TextView
-                            style="@style/Home.GitInfo.Label.Style"
-                            android:text="Following" />
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@id/name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

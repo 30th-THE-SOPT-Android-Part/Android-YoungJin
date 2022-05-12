@@ -1,35 +1,41 @@
-package org.sopt.soptseminar.presentation.home
+package org.sopt.soptseminar.presentation.github.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import org.sopt.soptseminar.domain.GithubProfileRepository
 import org.sopt.soptseminar.models.FollowerInfo
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.models.UserInfo
+import org.sopt.soptseminar.modules.datastore.UserPreferenceRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(
+class GithubViewModel @Inject constructor(
     private val profileRepo: GithubProfileRepository,
+    private val userPreferenceRepository: UserPreferenceRepository,
 ) : ViewModel() {
-    private var userInfo = MutableLiveData(
-        UserInfo(
-            name = "최영진",
-            age = 24,
-            mbti = "ISFP",
-            university = "성신여대",
-            major = "컴퓨터공학과",
-            email = "cyjin6789@gmail.com"
-        )
-    )
-
+    private val userInfo = MutableLiveData<UserInfo>()
     private var followers: MutableList<FollowerInfo>? = mutableListOf()
     private var following: MutableList<FollowerInfo>? = mutableListOf()
     private var repositories = MutableLiveData<MutableList<RepositoryInfo>>(mutableListOf())
 
-    fun fetchGithubList() { // TODO 코드 정리 후 init 블록 안에서 호출..
+    init {
+        viewModelScope.launch {
+            loadUserInfo()
+        }
+        fetchGithubList()
+    }
+
+    private suspend fun loadUserInfo() {
+        userInfo.value = userPreferenceRepository.getUsersPreference().first()
+    }
+
+    private fun fetchGithubList() {
         followers = profileRepo.fetchGithubFollowers().toMutableList()
         following = profileRepo.fetchGithubFollowing().toMutableList()
         repositories.value = profileRepo.fetchGithubRepositories().toMutableList()
@@ -49,22 +55,6 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun setUserInfo(userInfo: UserInfo) {
-        this.userInfo.value = userInfo
-    }
-
-    fun setFollowers(followers: List<FollowerInfo>?) {
-        this.followers = followers?.toMutableList()
-    }
-
-    fun setFollowing(following: List<FollowerInfo>?) {
-        this.following = following?.toMutableList()
-    }
-
-    fun setRepositories(repositories: List<RepositoryInfo>?) {
-        this.repositories.value = repositories?.toMutableList()
-    }
-    
     fun getUserInfo(): LiveData<UserInfo> = userInfo
     fun getFollower(): List<FollowerInfo>? = followers
     fun getFollowing(): List<FollowerInfo>? = following

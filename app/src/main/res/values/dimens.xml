@@ -23,5 +23,6 @@
     <dimen name="WidthTabItem">120dp</dimen>
 
     <!-- Radius -->
+    <dimen name="radiusEditText">10dp</dimen>
     <dimen name="radiusTabItem">16dp</dimen>
 </resources>

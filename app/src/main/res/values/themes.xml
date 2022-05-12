@@ -13,10 +13,16 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
-        <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- Navigation -->
+    <style name="TextAppearance.BottomNavigation.Tab.Text" parent="">
+        <item name="android:fontFamily">@font/suit_r</item>
+        <item name="android:textSize">@dimen/typographyDetail</item>
+    </style>
+
+    <!-- Button -->
     <style name="Widget.Button.Basic.Style" parent="">
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
@@ -57,6 +63,7 @@
         <item name="android:padding">@dimen/spacingBase</item>
     </style>
 
+    <!-- EditText -->
     <style name="Widget.EditText.Label.TextAppearance" parent="">
         <item name="android:textSize">@dimen/typographyDescription</item>
         <item name="android:textColor">@color/gray_400</item>
@@ -64,8 +71,7 @@
     </style>
 
     <style name="Widget.EditText.Style" parent="">
-        <item name="android:background">@drawable/shape_border_radius_10</item>
-        <item name="android:backgroundTint">@color/gray_100</item>
+        <item name="android:background">@drawable/selector_edittext_background</item>
         <item name="android:paddingVertical">@dimen/spacingBase</item>
         <item name="android:paddingHorizontal">@dimen/spacing12</item>
         <item name="android:textColorHint">@color/gray_250</item>
@@ -78,6 +84,7 @@
         <item name="android:fontFamily">@font/suit_m</item>
     </style>
 
+    <!-- Title & Description -->
     <style name="Widget.TabTitle.TextAppearance" parent="">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/gray_700</item>
@@ -113,6 +120,7 @@
         <item name="android:fontFamily">@font/suit_sb</item>
     </style>
 
+    <!-- Divider -->
     <style name="Widget.Divider.Style" parent="">
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/gray_200</item>

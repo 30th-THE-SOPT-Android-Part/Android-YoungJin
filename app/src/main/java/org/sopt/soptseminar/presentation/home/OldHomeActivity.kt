@@ -16,17 +16,18 @@ import org.sopt.soptseminar.databinding.ActivityHomeBinding
 import org.sopt.soptseminar.models.RepositoryInfo
 import org.sopt.soptseminar.models.UserInfo
 import org.sopt.soptseminar.models.types.GithubDetailViewType
-import org.sopt.soptseminar.presentation.github.screens.GithubProfileActivity
+import org.sopt.soptseminar.presentation.github.screens.OldGithubProfileActivity
+import org.sopt.soptseminar.presentation.profile.ProfileViewModel
 
 @AndroidEntryPoint
-class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
+class OldHomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private val viewModel: ProfileViewModel by viewModels()
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this@HomeActivity
+        binding.lifecycleOwner = this@OldHomeActivity
 
         viewModel.fetchGithubList()
 
@@ -51,7 +52,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             else -> GithubDetailViewType.FOLLOWER.ordinal
         }
 
-        Intent(this, GithubProfileActivity::class.java).apply {
+        Intent(this, OldGithubProfileActivity::class.java).apply {
             putExtra(
                 ARG_GITHUB_INFO, bundleOf(
                     ARG_GITHUB_DETAIL_POSITION to position,

@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.github.screens.OldGithubProfileActivity">
+    tools:context=".presentation.github.screens.GithubFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="org.sopt.soptseminar.presentation.profile.ProfileViewModel" />
+            type="org.sopt.soptseminar.presentation.github.viewmodels.GithubViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,17 +20,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/spacingBase"
             app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/back"
-                style="@style/Widget.Navigation.Button.Style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_back"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 style="@style/Widget.ToolbarTitle.TextAppearance"

@@ -13,6 +13,7 @@
 
     <!-- General -->
     <color name="gray_100">#F8F8F8</color>
+    <color name="gray_150">#F0F0F0</color>
     <color name="gray_200">#EAEAEA</color>
     <color name="gray_250">#BABABA</color>
     <color name="gray_300">#AAAAAA</color>
