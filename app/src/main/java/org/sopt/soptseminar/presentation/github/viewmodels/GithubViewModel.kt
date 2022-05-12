@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GithubViewModel @Inject constructor(
-    private val profileRepo: GithubProfileRepository,
-    private val userPreferenceRepository: UserPreferenceRepository,
+    private val githubProfileRepo: GithubProfileRepository,
+    private val userPreferenceRepo: UserPreferenceRepository,
 ) : ViewModel() {
     private val userInfo = MutableLiveData<UserInfo>()
     private var followers = MutableLiveData<List<FollowerInfo>?>(mutableListOf())
@@ -33,15 +33,15 @@ class GithubViewModel @Inject constructor(
     }
 
     private suspend fun loadUserInfo() {
-        userInfo.value = userPreferenceRepository.getUsersPreference().first()
+        userInfo.value = userPreferenceRepo.getUsersPreference().first()
     }
 
     private fun fetchGithubList() {
         viewModelScope.launch(Dispatchers.IO) {
             // TODO UserInfo에 github 전용 username 추가 후, userInfo.githubUserName 으로 접근
-            followers.postValue(profileRepo.fetchGithubFollowers("youngjinc"))
-            following.postValue(profileRepo.fetchGithubFollowing("youngjinc"))
-            repositories.postValue(profileRepo.fetchGithubRepositories("youngjinc")
+            followers.postValue(githubProfileRepo.fetchGithubFollowers("youngjinc"))
+            following.postValue(githubProfileRepo.fetchGithubFollowing("youngjinc"))
+            repositories.postValue(githubProfileRepo.fetchGithubRepositories("youngjinc")
                 ?.toMutableList())
         }
     }

@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val userPreferenceRepository: UserPreferenceRepository,
+    private val userPreferenceRepo: UserPreferenceRepository,
 ) : ViewModel() {
     private val userInfo = MutableLiveData<UserInfo>()
     private var following: MutableList<FollowerInfo>? = mutableListOf()
@@ -26,7 +26,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     private suspend fun loadUserInfo() {
-        userInfo.value = userPreferenceRepository.getUsersPreference().first()
+        userInfo.value = userPreferenceRepo.getUsersPreference().first()
     }
 
     fun getUserInfo(): LiveData<UserInfo> = userInfo

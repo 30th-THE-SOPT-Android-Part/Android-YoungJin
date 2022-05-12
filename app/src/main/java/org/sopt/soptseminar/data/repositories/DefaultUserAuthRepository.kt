@@ -9,14 +9,14 @@ import javax.inject.Inject
 
 class DefaultUserAuthRepository @Inject constructor(
     private val soptService: SoptService,
-    private val userPreferenceRepository: UserPreferenceRepository,
+    private val userPreferenceRepo: UserPreferenceRepository,
 ) : UserAuthRepository {
     override suspend fun signIn(email: String, password: String): Pair<Boolean, String?> {
         runCatching {
             soptService.postSignIn(RequestSignIn(email, password))
         }.fold({
             val data = it.body()?.data ?: return Pair(false, null)
-            userPreferenceRepository.setUserPreference(
+            userPreferenceRepo.setUserPreference(
                 UserInfo(
                     name = data.name,
                     age = 24,

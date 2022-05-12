@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignViewModel @Inject constructor(
-    private val userAuthRepository: UserAuthRepository,
+    private val userAuthRepo: UserAuthRepository,
 ) : ViewModel() {
     private val userName = MutableLiveData<String?>()
     private val userId = MutableLiveData<String>()
@@ -24,7 +24,7 @@ class SignViewModel @Inject constructor(
         if (!isValid) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val response = userAuthRepository.signIn(
+            val response = userAuthRepo.signIn(
                 userId.value!!,
                 userPassword.value!!
             )
@@ -41,7 +41,7 @@ class SignViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             isValidSignInput.postValue(
-                userAuthRepository.signUp(
+                userAuthRepo.signUp(
                     userName.value!!,
                     userId.value!!,
                     userPassword.value!!
