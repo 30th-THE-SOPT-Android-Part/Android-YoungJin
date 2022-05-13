@@ -30,7 +30,10 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
 
     private fun addObservers() {
         viewModel.getSuccessSign().observe(this) { isSuccess ->
-            if (isSuccess == true) moveToSignIn()
+            if (isSuccess == true) {
+                showToast(getString(R.string.sign_up_success_toast_text))
+                moveToSignIn()
+            }
         }
 
         viewModel.getExistUser().observe(this) { isExist ->

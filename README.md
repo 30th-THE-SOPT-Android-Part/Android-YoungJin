@@ -17,6 +17,8 @@
 ### Coroutine을 사용한 비동기 처리
 <img src="https://user-images.githubusercontent.com/48701368/168183038-23e62e8a-802f-4902-b98e-2a13dd2dcd49.png" width="800">
 
+*화면 녹화 이후 회원가입 성공 시 토스트 띄우기를 구현했기 때문에 영상에서는 회원가입 성공 시 토스트 뜨는 걸 볼 수 없습니당.. ^____ㅜ
+
 # 로그인 및 회원가입 API 연동
 `SoptService.kt`
 ```kotlin
@@ -114,9 +116,12 @@ fun signUp() {
 `SignUpActivity.kt`
 ```kotlin
 private fun addObservers() {
-    // 회원가입 성공 시 Toast 띄우기
+    // 회원가입 성공 시 Toast 띄우기 및 로그인화면으로 이동
     viewModel.getSuccessSign().observe(this) { isSuccess ->
-        if (isSuccess == true) moveToSignIn()
+        if (isSuccess == true) {
+            showToast(getString(R.string.sign_up_success_toast_text))
+            moveToSignIn()
+        }
     }
 
     // 기존 가입자가 가입 시도한 경우 Toast 띄우기
