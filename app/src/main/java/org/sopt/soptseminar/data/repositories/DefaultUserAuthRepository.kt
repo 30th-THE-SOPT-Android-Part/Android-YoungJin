@@ -1,6 +1,7 @@
 package org.sopt.soptseminar.data.repositories
 
 import org.sopt.soptseminar.data.models.sign.RequestSignIn
+import org.sopt.soptseminar.data.models.sign.RequestSignUp
 import org.sopt.soptseminar.data.services.SoptService
 import org.sopt.soptseminar.domain.models.UserInfo
 import org.sopt.soptseminar.domain.repositories.UserAuthRepository
@@ -33,14 +34,18 @@ class DefaultUserAuthRepository @Inject constructor(
         })
     }
 
-    override suspend fun signUp(name: String, email: String, password: String): Boolean {
+    override suspend fun signUp(
+        name: String,
+        email: String,
+        password: String,
+    ): Pair<Boolean, Int?> {
         runCatching {
-            soptService.postSignIn(RequestSignIn(email, password))
+            soptService.postSignUp(RequestSignUp(name, email, password))
         }.fold({
-            return true
+            return Pair(true, it.code())
         }, {
             it.printStackTrace()
-            return false
+            return Pair(true, null)
         })
     }
 }

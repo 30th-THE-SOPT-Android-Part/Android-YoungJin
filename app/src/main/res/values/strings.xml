@@ -27,7 +27,7 @@
 
     <string name="check_sign_in_input_toast_text">아이디 또는 비밀번호를 확인해 주세요</string>
     <string name="sign_in_success_toast_text">안녕하세요 %s님👋</string>
-    <string name="sign_up_failure_toast_text">입력하신 정보를 다시 확인해 주세요</string>
+    <string name="sign_up_exist_user_toast_text">이미 가입된 계정이에요! 로그인으로 진행해 주세요</string>
 
     <!-- Home -->
     <string name="info">정보</string>
