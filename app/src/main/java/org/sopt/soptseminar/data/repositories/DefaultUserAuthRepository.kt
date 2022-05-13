@@ -13,7 +13,7 @@ class DefaultUserAuthRepository @Inject constructor(
     private val userPreferenceRepo: UserPreferenceRepository,
 ) : UserAuthRepository {
     override suspend fun signIn(email: String, password: String): Pair<Boolean, String?> {
-        runCatching {
+        return runCatching {
             soptService.postSignIn(RequestSignIn(email, password))
         }.fold({
             val data = it.body()?.data ?: return Pair(false, null)
@@ -27,10 +27,10 @@ class DefaultUserAuthRepository @Inject constructor(
                     email = "cyjin6@naver.com"
                 )
             )
-            return Pair(true, data.name)
+            Pair(true, data.name)
         }, {
             it.printStackTrace()
-            return Pair(false, null)
+            Pair(false, null)
         })
     }
 
@@ -39,13 +39,13 @@ class DefaultUserAuthRepository @Inject constructor(
         email: String,
         password: String,
     ): Pair<Boolean, Int?> {
-        runCatching {
+        return runCatching {
             soptService.postSignUp(RequestSignUp(name, email, password))
         }.fold({
-            return Pair(true, it.code())
+            Pair(true, it.code())
         }, {
             it.printStackTrace()
-            return Pair(true, null)
+            Pair(true, null)
         })
     }
 }

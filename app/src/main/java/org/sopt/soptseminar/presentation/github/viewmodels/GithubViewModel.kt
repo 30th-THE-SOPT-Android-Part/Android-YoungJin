@@ -21,9 +21,9 @@ class GithubViewModel @Inject constructor(
     private val userPreferenceRepo: UserPreferenceRepository,
 ) : ViewModel() {
     private val userInfo = MutableLiveData<UserInfo>()
-    private var followers = MutableLiveData<List<FollowerInfo>?>(mutableListOf())
-    private var following = MutableLiveData<List<FollowerInfo>?>(mutableListOf())
-    private var repositories = MutableLiveData<MutableList<RepositoryInfo>>(mutableListOf())
+    private var followers = MutableLiveData<List<FollowerInfo>?>()
+    private var following = MutableLiveData<List<FollowerInfo>?>()
+    private var repositories = MutableLiveData<MutableList<RepositoryInfo>>()
 
     init {
         viewModelScope.launch {

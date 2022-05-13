@@ -12,7 +12,6 @@ data class ResponseFollower(
     @SerializedName("html_url")
     val url: String,
 ) {
-    fun toFollowerInfo(follower: ResponseFollower): FollowerInfo {
-        return FollowerInfo(follower.name, follower.profile, follower.url, id = follower.id)
-    }
+    fun toFollowerInfo(follower: ResponseFollower): FollowerInfo =
+        FollowerInfo(follower.name, follower.profile, follower.url, id = follower.id)
 }

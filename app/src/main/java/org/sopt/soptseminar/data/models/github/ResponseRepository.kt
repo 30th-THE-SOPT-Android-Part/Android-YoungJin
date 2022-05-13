@@ -10,10 +10,9 @@ data class ResponseRepository(
     @SerializedName("html_url")
     val url: String,
 ) {
-    fun toRepositoryInfo(repository: ResponseRepository): RepositoryInfo {
-        return RepositoryInfo(repository.name,
+    fun toRepositoryInfo(repository: ResponseRepository): RepositoryInfo =
+        RepositoryInfo(repository.name,
             repository.description,
             repository.url,
             repository.id)
-    }
 }

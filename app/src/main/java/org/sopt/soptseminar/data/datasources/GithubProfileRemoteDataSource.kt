@@ -7,41 +7,41 @@ import javax.inject.Inject
 
 class GithubProfileRemoteDataSource @Inject constructor(private val githubService: GithubService) {
     suspend fun fetchFollowers(userName: String): List<FollowerInfo>? {
-        runCatching {
+        return runCatching {
             githubService.getFollowerList(userName)
         }.fold({
-            return it.body()?.map { follower ->
+            it.body()?.map { follower ->
                 follower.toFollowerInfo(follower)
             }
         }, {
             it.printStackTrace()
-            return null
+            null
         })
     }
 
     suspend fun fetchFollowing(userName: String): List<FollowerInfo>? {
-        runCatching {
+        return runCatching {
             githubService.getFollowingList(userName)
         }.fold({
-            return it.body()?.map { following ->
+            it.body()?.map { following ->
                 following.toFollowerInfo(following)
             }
         }, {
             it.printStackTrace()
-            return null
+            null
         })
     }
 
     suspend fun fetchRepositories(userName: String): List<RepositoryInfo>? {
-        runCatching {
+        return runCatching {
             githubService.getRepositoryList(userName)
         }.fold({
-            return it.body()?.map { repository ->
+            it.body()?.map { repository ->
                 repository.toRepositoryInfo(repository)
             }
         }, {
             it.printStackTrace()
-            return null
+            null
         })
     }
 
