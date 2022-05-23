@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object RetrofitBinder {
+object ServiceBinder {
     private const val SIGN_BASE_URL = "http://13.124.62.236/"
     private const val GITHUB_BASE_URL = "https://api.github.com/"
 

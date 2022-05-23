@@ -1,6 +1,6 @@
 package org.sopt.soptseminar.data.models
 
-data class GithubBaseResponse<T>(
+data class BaseResponse<T>(
     val status: Int,
     val message: String,
     val data: T,
