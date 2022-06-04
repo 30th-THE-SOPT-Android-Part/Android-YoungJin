@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val userPreferenceRepository: UserPreferenceRepository
+    private val userPreferenceRepo: UserPreferenceRepository
 ) : ViewModel() {
     private val isSignedUser = MutableLiveData<Boolean>()
 
@@ -22,7 +22,7 @@ class SplashViewModel @Inject constructor(
 
     private fun checkSignedUser() {
         viewModelScope.launch {
-            isSignedUser.value = userPreferenceRepository.getUsersPreference().first() != null
+            isSignedUser.value = userPreferenceRepo.getUsersPreference().first() != null
         }
     }
 

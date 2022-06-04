@@ -1,4 +1,4 @@
-package org.sopt.soptseminar.models.types
+package org.sopt.soptseminar.domain.models.types
 
 import org.sopt.soptseminar.R
 

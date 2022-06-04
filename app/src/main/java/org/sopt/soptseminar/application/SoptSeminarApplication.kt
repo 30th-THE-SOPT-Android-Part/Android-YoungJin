@@ -1,4 +1,4 @@
-package org.sopt.soptseminar
+package org.sopt.soptseminar.application
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

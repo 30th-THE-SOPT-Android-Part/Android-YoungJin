@@ -29,25 +29,29 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
     }
 
     private fun addObservers() {
-        viewModel.getValidSignInput().observe(this) { isValid ->
-            if (isValid) {
+        viewModel.getSuccessSign().observe(this) { isSuccess ->
+            if (isSuccess == true) {
+                showToast(getString(R.string.sign_up_success_toast_text))
                 moveToSignIn()
-            } else {
-                showToast(getString(R.string.sign_up_failure_toast_text))
             }
+        }
+
+        viewModel.getExistUser().observe(this) { isExist ->
+            if (isExist == true)
+                showToast(getString(R.string.sign_up_exist_user_toast_text))
         }
     }
 
     private fun moveToSignIn() {
         val intent = Intent(this, SignInActivity::class.java)
-        intent.putExtra(ARG_USER_INFO, viewModel.getUserInfo())
-        intent.putExtra(ARG_SIGN_INFO, viewModel.getSignInfo())
+        intent.putExtra(ARG_USER_EMAIL, binding.idInput.text.toString())
+        intent.putExtra(ARG_USER_PASSWORD, binding.passwordInput.text.toString())
         setResult(RESULT_OK, intent)
         finish()
     }
 
     companion object {
-        const val ARG_USER_INFO = "userInfo"
-        const val ARG_SIGN_INFO = "signInfo"
+        const val ARG_USER_EMAIL = "userEmail"
+        const val ARG_USER_PASSWORD = "userPassword"
     }
 }

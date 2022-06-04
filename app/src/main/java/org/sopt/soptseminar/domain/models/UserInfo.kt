@@ -1,8 +1,8 @@
-package org.sopt.soptseminar.models
+package org.sopt.soptseminar.domain.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import org.sopt.soptseminar.models.types.SoptPartType
+import org.sopt.soptseminar.domain.models.types.SoptPartType
 
 @Parcelize
 data class UserInfo(

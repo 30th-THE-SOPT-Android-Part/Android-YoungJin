@@ -1,7 +1,320 @@
 # Android-YoungJin
-<!-- week4 작성 시 토글로 정리 예정 -->
+<!-- week5 작성 시 토글로 정리 예정 -->
 <!-- <details>
-<summary>week3</summary> -->
+<summary>week5</summary> -->
+
+# Week4
+<br>
+
+- [X] LEVEL 1
+- [X] LEVEL 2
+- [X] LEVEL 3
+
+회원가입 및 로그인 서버통신|Github API 연동|기존 가입자 예외처리|
+---|---|---|
+|<img src="https://user-images.githubusercontent.com/48701368/168183026-51de5d7b-30a4-482d-9e6c-c7f03a46e918.gif" width="250">|<img src="https://user-images.githubusercontent.com/48701368/168183019-c334778e-643a-40ac-a01c-bb7ce9896448.gif" width="250">|<img src="https://user-images.githubusercontent.com/48701368/168191004-ca589451-d2eb-41c0-b4cb-98dd1cdd8e29.gif" width="250">
+
+### Coroutine을 사용한 비동기 처리
+<img src="https://user-images.githubusercontent.com/48701368/168183038-23e62e8a-802f-4902-b98e-2a13dd2dcd49.png" width="800">
+
+*화면 녹화 이후 회원가입 성공 시 토스트 띄우기를 구현했기 때문에 영상에서는 회원가입 성공 시 토스트 뜨는 걸 볼 수 없습니당.. ^____ㅜ
+
+# 로그인 및 회원가입 API 연동
+`SoptService.kt`
+```kotlin
+interface SoptService {
+    @POST("auth/signin")
+    suspend fun postSignIn(@Body body: RequestSignIn): Response<BaseResponse<ResponseSignIn>>
+
+    @POST("auth/signup")
+    suspend fun postSignUp(@Body body: RequestSignUp): Response<BaseResponse<ResponseSignUp>>
+}
+```
+
+`RetrofitBinder.kt`
+```kotlin
+@Singleton
+@Provides
+fun bindSoptService(): SoptService {
+    return Retrofit.Builder().baseUrl(SIGN_BASE_URL).addConverterFactory(
+        GsonConverterFactory.create()
+    ).build().create(SoptService::class.java)
+}
+```
+
+`DefaultUserAuthRepository.kt`
+```kotlin
+override suspend fun signIn(email: String, password: String): Pair<Boolean, String?> {
+    runCatching {
+        soptService.postSignIn(RequestSignIn(email, password))
+    }.fold({
+        // 로그인 성공 시 Local에 userInfo 저장
+        val data = it.body()?.data ?: return Pair(false, null)
+        userPreferenceRepo.setUserPreference(...)
+            return Pair(true, data.name)
+    }, {
+        it.printStackTrace()
+        return Pair(false, null)
+    })
+}
+
+override suspend fun signUp(
+    name: String,
+    email: String,
+    password: String,
+): Pair<Boolean, Int?> {
+    runCatching {
+        soptService.postSignUp(RequestSignUp(name, email, password))
+    }.fold({
+        return Pair(true, it.code())
+    }, {
+        it.printStackTrace()
+        return Pair(true, null)
+    })
+}
+```
+
+`SignViewModel.kt`
+```kotlin
+fun signIn() {
+    val isValid = !(userId.value.isNullOrEmpty() || userPassword.value.isNullOrEmpty())
+    if (!isValid) return
+
+    // Coroutine 사용한 비동기 처리
+    viewModelScope.launch(Dispatchers.IO) {
+        val response = userAuthRepo.signIn(
+            userId.value!!,
+            userPassword.value!!
+        )
+
+        // 로그인 api 요청 시 받아온 "name" value를 저장(로그인 성공 시 name이 포함된 Toast를 띄우기 위함)
+        userName.postValue(response.second)
+
+        // 로그인 api 요청 성공 여부를 저장(성공 시 메인화면으로 전환하기 위함)
+        isSuccessSign.postValue(response.first)
+    }
+}
+
+fun signUp() {
+    val isValid =
+        !(userId.value.isNullOrEmpty() || userName.value.isNullOrEmpty() || userPassword.value.isNullOrEmpty())
+    if (!isValid) return
+
+    viewModelScope.launch(Dispatchers.IO) {
+        val response = userAuthRepo.signUp(
+            userName.value!!,
+            userId.value!!,
+            userPassword.value!!
+        )
+
+        isSuccessSign.postValue(response.first && response.second == 201)
+        isExistUser.postValue(response.second == 409)
+    }
+}
+```
+
+`SignUpActivity.kt`
+```kotlin
+private fun addObservers() {
+    // 회원가입 성공 시 Toast 띄우기 및 로그인화면으로 이동
+    viewModel.getSuccessSign().observe(this) { isSuccess ->
+        if (isSuccess == true) {
+            showToast(getString(R.string.sign_up_success_toast_text))
+            moveToSignIn()
+        }
+    }
+
+    // 기존 가입자가 가입 시도한 경우 Toast 띄우기
+    viewModel.getExistUser().observe(this) { isExist ->
+        if (isExist == true)
+            showToast(getString(R.string.sign_up_exist_user_toast_text))
+    }
+}
+
+```
+
+# Github API 연동
+`GithubService.kt`
+```kotlin
+interface GithubService {
+    @GET("users/{user_name}/followers")
+    suspend fun getFollowerList(@Path("user_name") userName: String): Response<List<ResponseFollower>>
+
+    @GET("users/{user_name}/following")
+    suspend fun getFollowingList(@Path("user_name") userName: String): Response<List<ResponseFollower>>
+
+    @GET("users/{user_name}/repos")
+    suspend fun getRepositoryList(@Path("user_name") userName: String): Response<List<ResponseRepository>>
+}
+```
+
+`RetrofitBinder.kt`
+```kotlin
+@Singleton
+@Provides
+fun bindGithubService(): GithubService {
+    return Retrofit.Builder().baseUrl(GITHUB_BASE_URL).addConverterFactory(
+        GsonConverterFactory.create()
+    ).build().create(GithubService::class.java)
+}
+```
+
+`GithubProfileRemoteDataSource.kt`
+```kotlin
+suspend fun fetchFollowers(userName: String): List<FollowerInfo>? {
+    runCatching {
+        githubService.getFollowerList(userName)
+    }.fold({
+        return it.body()?.map { follower ->
+            follower.toFollowerInfo(follower)
+        }
+    }, {
+        it.printStackTrace()
+        return null
+    })
+}
+
+suspend fun fetchFollowing(userName: String): List<FollowerInfo>? {
+    runCatching {
+        githubService.getFollowingList(userName)
+    }.fold({
+        return it.body()?.map { following ->
+            following.toFollowerInfo(following)
+        }
+    }, {
+        it.printStackTrace()
+        return null
+    })
+}
+
+suspend fun fetchRepositories(userName: String): List<RepositoryInfo>? {
+    runCatching {
+        githubService.getRepositoryList(userName)
+    }.fold({
+        return it.body()?.map { repository ->
+            repository.toRepositoryInfo(repository)
+        }
+    }, {
+        it.printStackTrace()
+        return null
+    })
+}
+```
+
+`GithubViewModel.kt`
+```kotlin
+private fun fetchGithubList() {
+    viewModelScope.launch(Dispatchers.IO) {
+        // TODO UserInfo에 github 전용 username 추가 후, userInfo.githubUserName 으로 접근
+        followers.postValue(githubProfileRepo.fetchGithubFollowers("youngjinc"))
+        following.postValue(githubProfileRepo.fetchGithubFollowing("youngjinc"))
+        repositories.postValue(githubProfileRepo.fetchGithubRepositories("youngjinc")
+                ?.toMutableList())
+    }
+}
+
+```
+
+`FollowerFragment.kt`
+```kotlin
+  private fun addObservers() {
+        viewModel.getFollower().observe(viewLifecycleOwner) {
+            if (followerViewType == GithubDetailViewType.FOLLOWER.name) {
+                followerListAdapter.submitList(it?.toMutableList())
+            }
+        }
+
+        viewModel.getFollowing().observe(viewLifecycleOwner) {
+            if (followerViewType == GithubDetailViewType.FOLLOWING.name) {
+                followerListAdapter.submitList(it?.toMutableList())
+            }
+        }
+    }
+
+```
+
+# Wrapper Class를 이용하여 BaseResponse data class 분리
+
+`GithubBaseResponse.kt`
+```kotlin
+data class GithubBaseResponse<T>(
+    val status: Int,
+    val message: String,
+    val data: T,
+)
+```
+
+`RequestSignUp.kt`
+```kotlin
+data class RequestSignUp(
+    val name: String,
+    val email: String,
+    val password: String
+)
+```
+
+`SoptService.kt`
+```kotlin
+suspend fun postSignUp(@Body body: RequestSignUp): Response<GithubBaseResponse<ResponseSignUp>>
+```
+
+# 새롭게 알게된 내용
+## runCatching을 이용한 kotlin에서 exception처리 방법
+
+kotlin 에서 제공하는 runCatching은 아래와 같다.
+```java
+public inline fun <R> runCatching(block: () -> R): Result<R> {
+    return try {
+        Result.success(block())
+    } catch (e: Throwable) {
+        Result.failure(e)
+    }
+}
+```
+
+try-catch를 runCatching으로 바꾸어 보면 아래와 같이 표현할 수 있다.
+
+```kotlin
+val fruitResult = runCatching {
+    getRandomString()
+}
+val fruitName = fruitResult.getOrNull()
+```
+
+```kotlin
+if (fruitResult.isSuccess) { }
+if (fruitResult.isFailure) { }
+val fruitName = fruitResult.getOrNull()
+val throwable = fruitResult.exceptionOrNull()
+```
+
+Result에 대해 아래와 같은 extension 을 제공하고 있고, onSuccess, onFailure, fold로 성공과 실패(exception이 발생한 경우)를 따로 처리 가능하다.
+
+```kotlin
+Result<T>.getOrThrow(): T
+Result<T>.getOrElse(onFailure: (exception: Throwable) -> R): R
+Result<T>.getOrDefault(defaultValue: R): R
+Result<T>.onSuccess(action: (value: T) -> Unit): Result<T>
+Result<T>.onFailure(action: (exception: Throwable) -> Unit): Result<T>
+Result<T>.fold(
+    onSuccess: (value: T) -> R,
+    onFailure: (exception: Throwable) -> R
+): R
+
+Result<T>.map(transform: (value: T) -> R): Result<R>
+Result<T>.mapCatching(transform: (value: T) -> R): Result<R>
+Result<T>.recover(transform: (exception: Throwable) -> R): Result<R>
+Result<T>.recoverCatching(transform: (exception: Throwable) -> R): Result<R>
+```
+<br>
+
+# 참고
+[runCatching을 이용한 kotlin에서 exception처리 방법](https://uchun.dev/runCatching%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-kotlin%EC%97%90%EC%84%9C-exception%EC%B2%98%EB%A6%AC-%EB%B0%A9%EB%B2%95/)
+
+<br>
+
+<details>
+<summary>week3</summary>
 
 # Week3
 <br>
@@ -246,7 +559,7 @@ Preferences DataStore|Proto DataStore|
 
 [SharedPreferences 대신 쓰는 DataStore](https://kangmin1012.tistory.com/47)
 
-<br>
+</details>
 
 <details>
 <summary>week2</summary>

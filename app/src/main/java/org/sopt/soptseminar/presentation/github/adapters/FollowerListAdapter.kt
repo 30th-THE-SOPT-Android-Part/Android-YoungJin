@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.sopt.soptseminar.databinding.ItemFollowerBinding
-import org.sopt.soptseminar.models.FollowerInfo
+import org.sopt.soptseminar.domain.models.github.FollowerInfo
 
 class FollowerListAdapter(private val onItemClick: (FollowerInfo) -> Unit) :
     ListAdapter<FollowerInfo, RecyclerView.ViewHolder>(diffCallback) {

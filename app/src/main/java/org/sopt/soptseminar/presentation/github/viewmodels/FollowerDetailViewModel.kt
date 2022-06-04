@@ -2,7 +2,7 @@ package org.sopt.soptseminar.presentation.github.viewmodels
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.sopt.soptseminar.models.FollowerInfo
+import org.sopt.soptseminar.domain.models.github.FollowerInfo
 import javax.inject.Inject
 
 @HiltViewModel

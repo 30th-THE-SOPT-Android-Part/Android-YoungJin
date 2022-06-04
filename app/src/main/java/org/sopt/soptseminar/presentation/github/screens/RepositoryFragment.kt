@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseFragment
 import org.sopt.soptseminar.databinding.FragmentRepositoryBinding
-import org.sopt.soptseminar.models.RepositoryInfo
+import org.sopt.soptseminar.domain.models.github.RepositoryInfo
 import org.sopt.soptseminar.presentation.github.adapters.RepositoryListAdapter
 import org.sopt.soptseminar.presentation.github.viewmodels.GithubViewModel
 import org.sopt.soptseminar.util.ItemTouchHelperCallback

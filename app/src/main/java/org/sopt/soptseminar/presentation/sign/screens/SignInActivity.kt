@@ -10,8 +10,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivitySignInBinding
-import org.sopt.soptseminar.models.SignInfo
-import org.sopt.soptseminar.models.UserInfo
 import org.sopt.soptseminar.presentation.MainActivity
 import org.sopt.soptseminar.presentation.sign.viewmodels.SignViewModel
 import org.sopt.soptseminar.util.extensions.showToast
@@ -38,10 +36,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     private fun addObservers() {
-        viewModel.getValidSignInput().observe(this) { isValid ->
-            if (isValid) {
-                val name = viewModel.getUserInfo()?.name
-                showToast(String.format(getString(R.string.sign_in_success_toast_text), name))
+        viewModel.getSuccessSign().observe(this) { isSuccess ->
+            if (isSuccess == true) {
+                showToast(String.format(getString(R.string.sign_in_success_toast_text), viewModel.getUserName().value))
                 moveToHome()
             } else {
                 showToast(getString(R.string.check_sign_in_input_toast_text))
@@ -54,12 +51,10 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
                 val data = result.data ?: return@registerForActivityResult
-                data.getParcelableExtra<UserInfo>(ARG_USER_INFO)?.let { user ->
-                    viewModel.setUserInfo(user)
-                }
-                data.getParcelableExtra<SignInfo>(ARG_SIGN_INFO)?.let { sign ->
-                    viewModel.setSignInfo(sign)
-                }
+                viewModel.setSignInfo(
+                    data.getStringExtra(ARG_USER_EMAIL),
+                    data.getStringExtra(ARG_USER_PASSWORD)
+                )
             }
     }
 
@@ -69,7 +64,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding>(R.layout.activity_sig
     }
 
     companion object {
-        const val ARG_USER_INFO = "userInfo"
-        const val ARG_SIGN_INFO = "signInfo"
+        const val ARG_USER_EMAIL = "userEmail"
+        const val ARG_USER_PASSWORD = "userPassword"
     }
 }

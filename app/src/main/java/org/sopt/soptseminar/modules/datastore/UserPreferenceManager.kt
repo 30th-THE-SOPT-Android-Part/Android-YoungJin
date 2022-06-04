@@ -10,8 +10,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import org.sopt.soptseminar.models.UserInfo
-import org.sopt.soptseminar.models.types.SoptPartType
+import org.sopt.soptseminar.domain.models.UserInfo
+import org.sopt.soptseminar.domain.models.types.SoptPartType
 import org.sopt.soptseminar.util.safeValueOf
 import java.io.IOException
 import javax.inject.Inject

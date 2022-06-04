@@ -1,8 +1,7 @@
-package org.sopt.soptseminar.models
+package org.sopt.soptseminar.domain.models.github
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.util.*
 
 @Parcelize
 data class FollowerInfo(
@@ -10,5 +9,5 @@ data class FollowerInfo(
     val profile: String,
     val url: String,
     val description: String? = null,
-    val id: String = UUID.randomUUID().toString()
+    val id: Int
 ) : Parcelable

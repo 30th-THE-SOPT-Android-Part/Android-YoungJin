@@ -8,7 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseFragment
 import org.sopt.soptseminar.databinding.FragmentGithubBinding
-import org.sopt.soptseminar.models.types.GithubDetailViewType
+import org.sopt.soptseminar.presentation.types.GithubDetailViewType
 import org.sopt.soptseminar.presentation.github.adapters.GithubAdapter
 import org.sopt.soptseminar.presentation.github.viewmodels.GithubViewModel
 

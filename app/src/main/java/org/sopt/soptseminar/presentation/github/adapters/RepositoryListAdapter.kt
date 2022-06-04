@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.soptseminar.databinding.ItemRepositoryBinding
-import org.sopt.soptseminar.models.RepositoryInfo
+import org.sopt.soptseminar.domain.models.github.RepositoryInfo
 import org.sopt.soptseminar.util.ItemTouchHelperListener
 
 class RepositoryListAdapter(
