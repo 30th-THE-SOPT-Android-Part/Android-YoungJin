@@ -11,6 +11,13 @@
     <string name="tab_github">GITHUB</string>
     <string name="tab_camera">CAMERA</string>
 
+    <!-- Onboarding -->
+    <string name="onboarding_next">다음으로</string>
+    <string name="onboarding_start">시작하기</string>
+    <string name="onboarding_first_description">열정을 적극적으로 실천하고 싶다면!</string>
+    <string name="onboarding_second_description">다른 사람들과 연결되어 소통하고 싶다면!</string>
+    <string name="onboarding_third_description">용기와 도전으로 발전해나가고 싶다면!\nTHE SOPT의 주인공이 되어주세요😎</string>
+
     <!-- Sign -->
     <string name="sign_in">로그인</string>
     <string name="sign_up">회원가입</string>
@@ -59,5 +66,7 @@
 
     <!-- Gallery -->
     <string name="gallery_image_upload_title">이미지 업로드</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

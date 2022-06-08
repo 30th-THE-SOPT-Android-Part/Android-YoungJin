@@ -34,7 +34,7 @@
     </style>
 
     <style name="Widget.RoundButton.Style" parent="Widget.Button.Style">
-        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:backgroundTint">@color/selector_button_color</item>
         <item name="android:background">@drawable/shape_border_radius_10</item>
         <item name="android:layout_marginTop">@dimen/spacing10</item>
@@ -157,6 +157,15 @@
     <style name="Home.TabItem.TextAppearance.Style" parent="">
         <item name="android:textSize">@dimen/typographyDescription</item>
         <item name="android:fontFamily">@font/suit_sb</item>
+    </style>
+
+    <!-- Onboarding -->
+    <style name="Widget.Onboarding.Description.TextAppearance" parent="">
+        <item name="android:textSize">@dimen/typographyBase</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:fontFamily">@font/suit_sb</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:lineSpacingExtra">@dimen/spacingMicro</item>
     </style>
 
 </resources>
