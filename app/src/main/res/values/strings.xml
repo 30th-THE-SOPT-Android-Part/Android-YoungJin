@@ -12,7 +12,6 @@
     <string name="tab_camera">CAMERA</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_next">다음으로</string>
     <string name="onboarding_start">시작하기</string>
     <string name="onboarding_first_description">열정을 적극적으로 실천하고 싶다면!</string>
     <string name="onboarding_second_description">다른 사람들과 연결되어 소통하고 싶다면!</string>

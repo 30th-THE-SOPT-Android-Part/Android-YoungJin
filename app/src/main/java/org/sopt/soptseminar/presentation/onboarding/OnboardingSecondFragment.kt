@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import org.sopt.soptseminar.R
 import org.sopt.soptseminar.databinding.FragmentOnboardingSecondBinding
 
 class OnboardingSecondFragment : Fragment() {
@@ -19,14 +17,6 @@ class OnboardingSecondFragment : Fragment() {
     ): View {
         _binding = FragmentOnboardingSecondBinding.inflate(inflater, container, false)
 
-        addListeners()
-
         return binding.root
-    }
-
-    private fun addListeners() {
-        binding.next.setOnClickListener {
-            findNavController().navigate(R.id.action_onboarding_second_fragment_to_third_fragment)
-        }
     }
 }

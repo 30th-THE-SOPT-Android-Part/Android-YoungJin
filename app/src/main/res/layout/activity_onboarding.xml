@@ -22,6 +22,13 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/spacing20" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
         <TextView
             android:id="@+id/title"
             style="@style/Widget.TabTitle.TextAppearance"
@@ -33,17 +40,39 @@
             app:layout_constraintStart_toStartOf="@id/guide_start"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_host_fragment_container"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/onboarding_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/spacingBase"
-            app:defaultNavHost="true"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintBottom_toTopOf="@id/indicator" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacingSmall"
+            app:layout_constraintBottom_toTopOf="@id/start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabBackground="@drawable/selector_indicator"
+            app:tabGravity="center"
+            app:tabIndicator="@null"
+            app:tabIndicatorHeight="0dp"
+            app:tabPaddingEnd="@dimen/spacingSmall"
+            app:tabPaddingTop="@dimen/spacingSmall" />
+
+        <Button
+            android:id="@+id/start"
+            style="@style/Widget.RoundButton.Style"
+            android:layout_width="0dp"
+            android:text="@string/onboarding_start"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintStart_toStartOf="@id/guide_start"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:navGraph="@navigation/nav_onboarding_graph" />
+            tools:text="@string/onboarding_start" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
