@@ -1,13 +1,10 @@
 package org.sopt.soptseminar.data.models.db
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 import org.sopt.soptseminar.domain.models.UserInfo
 import org.sopt.soptseminar.domain.models.types.SoptPartType
 
-@Parcelize
 @Entity(tableName = "user_table")
 data class LoginUserInfo(
     var name: String,
@@ -20,7 +17,7 @@ data class LoginUserInfo(
     val email: String,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-): Parcelable {
+) {
     fun toUserInfo(user: LoginUserInfo): UserInfo {
         return UserInfo(
             user.name,
