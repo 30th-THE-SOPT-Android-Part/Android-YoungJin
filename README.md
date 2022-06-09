@@ -268,12 +268,12 @@ private val sharedPreferences = EncryptedSharedPreferences.create(
 
 ```kotlin
 // read
-sharedPreferences.getString("edit", "")
+sharedPreferences.getString("key", "")
 
 // write
 sharedPreferences
     .edit()
-    .putString("ket", "value")
+    .putString("key", "value")
     .apply()
 ```
 
