@@ -1,6 +1,5 @@
 package org.sopt.soptseminar.data.repositories
 
-import org.sopt.soptseminar.data.models.db.LoginUserInfo
 import org.sopt.soptseminar.data.models.db.UserDao
 import org.sopt.soptseminar.data.models.sign.RequestSignIn
 import org.sopt.soptseminar.data.models.sign.RequestSignUp
@@ -25,16 +24,16 @@ class DefaultUserAuthRepository @Inject constructor(
             val data = it.body()?.data ?: return Pair(false, null)
 
             // 1. EncryptedSharedPreferences 사용
-//            userSharedPreferencesManager.setUserInfo(
-//                UserInfo(
-//                    name = data.name,
-//                    age = 24,
-//                    mbti = "ISFP",
-//                    university = "성신여대",
-//                    major = "컴퓨터공학과",
-//                    email = data.email
-//                )
-//            )
+            userSharedPreferencesManager.setUserInfo(
+                UserInfo(
+                    name = data.name,
+                    age = 24,
+                    mbti = "ISFP",
+                    university = "성신여대",
+                    major = "컴퓨터공학과",
+                    email = data.email
+                )
+            )
 
             // 2. DataStore 사용
             // TODO 7주차 과제 제출 후 주석 제거
@@ -50,16 +49,16 @@ class DefaultUserAuthRepository @Inject constructor(
 //            )
 
             // 3. Room 사용
-            userDao.saveUserInfo(
-                LoginUserInfo(
-                    name = data.name,
-                    age = 24,
-                    mbti = "ISFP",
-                    university = "성신여대",
-                    major = "컴퓨터공학과",
-                    email = data.email
-                )
-            )
+//            userDao.saveUserInfo(
+//                LoginUserInfo(
+//                    name = data.name,
+//                    age = 24,
+//                    mbti = "ISFP",
+//                    university = "성신여대",
+//                    major = "컴퓨터공학과",
+//                    email = data.email
+//                )
+//            )
 
             Pair(true, data.name)
         }, {
