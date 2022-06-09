@@ -13,7 +13,7 @@ import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivitySplashBinding
 import org.sopt.soptseminar.presentation.MainActivity
-import org.sopt.soptseminar.presentation.sign.screens.SignInActivity
+import org.sopt.soptseminar.presentation.onboarding.OnboardingActivity
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
@@ -40,7 +40,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     private fun moveToNext(isSigned: Boolean) {
         lifecycleScope.launch {
             if (isSigned) startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-            else startActivity(Intent(this@SplashActivity, SignInActivity::class.java))
+            else startActivity(Intent(this@SplashActivity, OnboardingActivity::class.java))
         }
     }
 

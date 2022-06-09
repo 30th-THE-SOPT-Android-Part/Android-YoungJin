@@ -6,27 +6,46 @@ import org.sopt.soptseminar.data.services.SoptService
 import org.sopt.soptseminar.domain.models.UserInfo
 import org.sopt.soptseminar.domain.repositories.UserAuthRepository
 import org.sopt.soptseminar.modules.datastore.UserPreferenceRepository
+import org.sopt.soptseminar.util.UserSharedPreferencesManager
 import javax.inject.Inject
 
 class DefaultUserAuthRepository @Inject constructor(
     private val soptService: SoptService,
     private val userPreferenceRepo: UserPreferenceRepository,
+    private val userSharedPreferencesManager: UserSharedPreferencesManager
 ) : UserAuthRepository {
     override suspend fun signIn(email: String, password: String): Pair<Boolean, String?> {
+
         return runCatching {
             soptService.postSignIn(RequestSignIn(email, password))
         }.fold({
             val data = it.body()?.data ?: return Pair(false, null)
-            userPreferenceRepo.setUserPreference(
+
+            // 1. EncryptedSharedPreferences 사용
+            userSharedPreferencesManager.setUserInfo(
                 UserInfo(
                     name = data.name,
                     age = 24,
                     mbti = "ISFP",
                     university = "성신여대",
                     major = "컴퓨터공학과",
-                    email = "cyjin6@naver.com"
+                    email = data.email
                 )
             )
+
+            // 2. DataStore 사용
+            // TODO 7주차 과제 제출 후 주석 제거
+//            userPreferenceRepo.setUserPreference(
+//                UserInfo(
+//                    name = data.name,
+//                    age = 24,
+//                    mbti = "ISFP",
+//                    university = "성신여대",
+//                    major = "컴퓨터공학과",
+//                    email = data.email
+//                )
+//            )
+
             Pair(true, data.name)
         }, {
             it.printStackTrace()

@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".presentation.onboarding.OnboardingActivity">
 
         <androidx.constraintlayout.widget.Guideline
@@ -44,10 +45,10 @@
             android:id="@+id/onboarding_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintBottom_toTopOf="@id/indicator"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintBottom_toTopOf="@id/indicator" />
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/indicator"
@@ -68,8 +69,8 @@
             android:id="@+id/start"
             style="@style/Widget.RoundButton.Style"
             android:layout_width="0dp"
-            android:text="@string/onboarding_start"
             android:layout_marginBottom="16dp"
+            android:text="@string/onboarding_start"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintStart_toStartOf="@id/guide_start"
