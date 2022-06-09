@@ -8,7 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.sopt.soptseminar.data.models.db.UserDao
 import org.sopt.soptseminar.domain.models.UserInfo
-import org.sopt.soptseminar.domain.models.github.FollowerInfo
 import org.sopt.soptseminar.modules.datastore.UserPreferenceRepository
 import org.sopt.soptseminar.util.UserSharedPreferencesManager
 import javax.inject.Inject
@@ -20,7 +19,6 @@ class ProfileViewModel @Inject constructor(
     private val userDao: UserDao,
 ) : ViewModel() {
     private val userInfo = MutableLiveData<UserInfo>()
-    private var following: MutableList<FollowerInfo>? = mutableListOf()
 
     init {
         viewModelScope.launch {
