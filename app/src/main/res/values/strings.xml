@@ -69,5 +69,6 @@
     <!-- Settings -->
     <string name="settings_title">환경설정</string>
     <string name="settings_logout">로그아웃</string>
+    <string name="settings_logout_success_toast_text">로그아웃 완료되었어요!</string>
 
 </resources>

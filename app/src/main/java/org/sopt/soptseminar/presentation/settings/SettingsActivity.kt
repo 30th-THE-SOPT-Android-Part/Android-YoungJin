@@ -9,6 +9,7 @@ import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivitySettingsBinding
 import org.sopt.soptseminar.presentation.onboarding.OnboardingActivity
+import org.sopt.soptseminar.util.extensions.showToast
 
 @AndroidEntryPoint
 class SettingsActivity :
@@ -21,6 +22,7 @@ class SettingsActivity :
 
     fun moveToOnboarding(view: View) {
         viewModel.logout()
+        showToast(getString(R.string.settings_logout_success_toast_text))
         startActivity(Intent(this, OnboardingActivity::class.java))
         ActivityCompat.finishAffinity(this)
     }
