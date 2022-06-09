@@ -1,7 +1,306 @@
 # Android-YoungJin
-<!-- week5 작성 시 토글로 정리 예정 -->
+<!-- week8 작성 시 토글로 정리 예정 -->
 <!-- <details>
-<summary>week5</summary> -->
+<summary>week7</summary>-->
+
+# Week7
+<br>
+
+- [X] LEVEL 1
+- [X] LEVEL 2
+- [X] LEVEL 3
+
+온보딩|자동로그인|로그아웃
+---|---|---
+|<img src="https://user-images.githubusercontent.com/48701368/172807783-73abb316-fc5b-4080-b391-dce6e992a7bb.gif" width="250">|<img src="https://user-images.githubusercontent.com/48701368/172809247-e2297302-85ee-4e18-b33c-9198ed8adec0.gif" width="250">|<img src="https://user-images.githubusercontent.com/48701368/172809260-681bc2d9-4a55-42d9-b6e4-da04c4b78fbb.gif" width="250">
+
+<br>
+
+# Navigation Componenet를 적용한 온보딩 화면 구현
+
+## 1. Navigation Graph 추가
+
+```xml
+<navigation...
+    android:id="@+id/nav_onboarding_graph"
+    app:startDestination="@id/onboardingFirstFragment">
+
+    <fragment...
+        android:id="@+id/onboardingFirstFragment"
+        android:name="org.sopt.soptseminar.presentation.onboarding.OnboardingFirstFragment">
+        <action
+            android:id="@+id/action_onboarding_first_fragment_to_second_fragment"
+            app:destination="@id/onboardingSecondFragment" />
+    </fragment>
+    <fragment...
+        android:id="@+id/onboardingSecondFragment"
+        android:name="org.sopt.soptseminar.presentation.onboarding.OnboardingSecondFragment">
+        <action
+            android:id="@+id/action_onboarding_second_fragment_to_third_fragment"
+            app:destination="@id/onboardingThirdFragment" />
+    </fragment>
+    <fragment...
+        android:id="@+id/onboardingThirdFragment"
+        android:name="org.sopt.soptseminar.presentation.onboarding.OnboardingThirdFragment" />
+</navigation>
+```
+
+## 2. First, Second 온보딩 Fragment에서 next 버튼을 누를 경우 다음화면으로 전환
+
+```kotlin
+    binding.next.setOnClickListener {
+        findNavController().navigate(R.id.action_onboarding_first_fragment_to_second_fragment)
+    }
+
+```
+
+## 3. 온보딩 마지막 화면에서 온보딩 Activity종료
+
+```kotlin
+    binding.start.setOnClickListener {
+        startActivity(Intent(context, SignInActivity::class.java))
+            requireActivity().finish()
+    }
+
+```
+
+<br>
+
+# EncryptedSharedPreferences를 사용한 자동 로그인 및 로그아웃 구현
+
+## 1. `UserSharedPreferencesManager.kt` 추가
+```kotlin
+@Singleton
+class UserSharedPreferencesManager @Inject constructor(@ApplicationContext context: Context) {
+    private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    private val prefs = EncryptedSharedPreferences.create(
+        "org.sopt.soptseminar.USER_PREFERENCES",
+        masterKeyAlias,
+        context,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+
+    fun setUserInfo(user: UserInfo) {
+        prefs.edit().run {
+            putString(PREF_USER_EMAIL, user.email)
+            putString(PREF_USER_NAME, user.name)
+            putInt(PREF_USER_AGE, user.age)
+            putString(PREF_USER_MBTI, user.mbti)
+            putString(PREF_USER_PROFILE, user.profile)
+            putString(PREF_USER_PART, user.part.name)
+            putString(PREF_USER_UNIV, user.university)
+            putString(PREF_USER_MAJOR, user.major)
+        }.apply()
+    }
+
+    /** 자동로그인 여부 판별을 위한 유저정보 가져오기 */
+    fun getUserInfo(): UserInfo? {
+        val name = prefs.getString(PREF_USER_NAME, null)
+        val email = prefs.getString(PREF_USER_EMAIL, null)
+
+        // 유저 이름이 존재하지 않는 경우, 미가입자로 판단
+        if (name == null || email == null) return null
+        return UserInfo(
+            name,
+            prefs.getInt(PREF_USER_AGE, 0),
+            prefs.getString(PREF_USER_MBTI, null) ?: "",
+            prefs.getString(PREF_USER_PROFILE, null),
+            safeValueOf<SoptPartType>(prefs.getString(PREF_USER_PART, null)) ?: SoptPartType.AOS,
+            prefs.getString(PREF_USER_UNIV, null) ?: "",
+            prefs.getString(PREF_USER_MAJOR, null) ?: "",
+            email
+        )
+    }
+
+    /** 로그아웃 시 유저 정보 삭제 */
+    fun clearUserInfo() {
+        prefs.edit().clear().apply()
+    }
+
+    companion object {
+        private const val PREF_USER_EMAIL = "userEmail"
+        private const val PREF_USER_NAME = "userName"
+        private const val PREF_USER_AGE = "userAge"
+        private const val PREF_USER_MBTI = "userMbti"
+        private const val PREF_USER_PROFILE = "userProfile"
+        private const val PREF_USER_PART = "userPart"
+        private const val PREF_USER_UNIV = "userUniv"
+        private const val PREF_USER_MAJOR = "userMajor"
+    }
+}
+```
+
+## 2. 로그인 성공 시 자동로그인을 위한 유저정보를 EncryptedSharedPreferences에 저장
+
+```kotlin
+userSharedPreferencesManager.setUserInfo(
+    UserInfo(
+        name = data.name,
+        age = 24,
+        mbti = "ISFP",
+        university = "성신여대",
+        major = "컴퓨터공학과",
+        email = data.email
+    )
+)
+```
+
+## 4. 로그아웃 시 EncryptedSharedPreferences에서 유저정보 삭제
+
+```kotlin
+userSharedPreferencesManager.clearUserInfo()
+```
+
+## 5. `SplashViewModel.kt`에서 유저정보 존재 여부에 따라 자동로그인 처리
+
+```kotlin
+isSignedUser.value = userSharedPreferencesManager.getUserInfo() != null
+```
+
+<br>
+
+# Room을 사용한 자동 로그인 및 로그아웃 구현
+
+## 1. Entity 추가
+
+```kotlin
+@Entity(tableName = "user_table")
+data class LoginUserInfo(
+    var name: String,
+    val age: Int,
+    val mbti: String,
+    val profile: String? = null,
+    val part: SoptPartType = SoptPartType.AOS,
+    val university: String,
+    val major: String,
+    val email: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+) { ... }
+```
+
+## 2. Dao 추가
+
+```kotlin
+@Dao
+interface UserDao {
+    @Insert
+    suspend fun saveUserInfo(user: LoginUserInfo)
+
+    @Query("DELETE FROM user_table")
+    suspend fun deleteUserInfo()
+
+    @Query("SELECT * FROM user_table")
+    fun getUserInfo(): LoginUserInfo?
+}
+```
+
+## 3. Database 추가
+
+```kotlin
+@Database(entities = [LoginUserInfo::class], version = 1)
+abstract class UserDatabase : RoomDatabase() {
+    abstract fun userDao(): UserDao
+}
+```
+
+## 4. 로그인 성공 시 자동로그인을 위한 유저정보를 Room DB에 저장
+
+```kotlin
+userDao.saveUserInfo(
+    LoginUserInfo(
+        name = data.name,
+        age = 24,
+        mbti = "ISFP",
+        university = "성신여대",
+        major = "컴퓨터공학과",
+        email = data.email
+    )
+)
+```
+
+## 5. 로그아웃 시 Room DB에서 유저정보 삭제
+
+```kotlin
+viewModelScope.launch(Dispatchers.IO) {
+    userDao.deleteUserInfo()
+}
+```
+
+## 6. `SplashViewModel.kt`에서 유저정보 존재 여부에 따라 자동로그인 처리
+
+```kotlin
+withContext(Dispatchers.IO) {
+    isSignedUser.postValue(userDao.getUserInfo()?.also {
+        it.toUserInfo(it)
+    } != null)
+}
+```
+
+<br>
+
+# 새롭게 알게된 내용
+## EncryptedSharedPreferences
+SharedPreferences를 사용하면 단순 평문으로 내용이 저장되기 때문에 큰 문제가 될 수 있다. 누군가 사용자의 폰을 이용해서 아이디 같은 개인정보를 쉽게 유출하여 악용할 수 있기 때문이다.
+ 
+Android SDK 23 (마시멜로 6.0) 부터 androidx.security 라이브러리를 사용하면 __<u>암호화 + SharedPreferences</u>__ 가 가능하다.
+
+EncryptedSharedPreferences은 기존 SharedPreferences에 약간의 코드 수정만으로도 암호화를 적용할 수 있다. 
+
+SharedPreferences의 Key/Value 모두에 대한 암호화 방법을 지정해야 한다. 현재는 아래와 같이 Key는 AES256_SIV, value는 AES256_GCM을 제공하고 있다. 각각을 모두 초기화해주면 다음과 같다.
+
+```kotlin
+private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+
+private val sharedPreferences = EncryptedSharedPreferences.create(
+      "secret_shared_prefs",
+      masterKeyAlias,
+      context,
+      EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+      EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+  )
+```
+
+### EncryptedSharedPreferences 읽기/쓰기
+
+기존 SharedPreferences처럼 다음과 같이 작성하면 된다.
+
+```kotlin
+// read
+sharedPreferences.getString("edit", "")
+
+// write
+sharedPreferences
+    .edit()
+    .putString("ket", "value")
+    .apply()
+```
+
+<br>
+
+## 모든 Activity를 종료하는 방법
+환경설정 Activity에서 로그아웃 버튼 클릭 시 환경설정 뿐만 아니라 MainActivity까지 전부 종료해야한다. 다음과 같이 코드를 작성하면 모든 Activity를 종료할 수 있다!
+
+```kotlin
+ActivityCompat.finishAffinity(this)
+```
+
+<br>
+
+# 참고
+[EncryptedSharedPreferences 공식문서](https://developer.android.com/reference/kotlin/androidx/security/crypto/EncryptedSharedPreferences)
+
+[EncryptedSharedPreferences 사용해보기](https://xmobile.tistory.com/entry/Android-EncryptedSharedPreferences-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0)
+
+[모든 액티비티 종료하기](https://cishome.tistory.com/59)
+
+<!-- </details> -->
+
+<br>
+
+<details>
+<summary>week4</summary>
 
 # Week4
 <br>
@@ -311,7 +610,7 @@ Result<T>.recoverCatching(transform: (exception: Throwable) -> R): Result<R>
 # 참고
 [runCatching을 이용한 kotlin에서 exception처리 방법](https://uchun.dev/runCatching%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-kotlin%EC%97%90%EC%84%9C-exception%EC%B2%98%EB%A6%AC-%EB%B0%A9%EB%B2%95/)
 
-<br>
+</details>
 
 <details>
 <summary>week3</summary>
