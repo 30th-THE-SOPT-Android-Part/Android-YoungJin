@@ -28,15 +28,18 @@ class FollowerDetailActivity :
         }
 
         initLayout()
+        addListeners()
     }
 
     private fun initLayout() {
+        Glide.with(binding.image).load(viewModel.getFollowerInfo()?.profile).into(binding.image)
+        binding.image.clipToOutline = true
+    }
+
+    private fun addListeners() {
         binding.back.setOnClickListener {
             onBackPressed()
         }
-
-        Glide.with(binding.image).load(viewModel.getFollowerInfo()?.profile).into(binding.image)
-        binding.image.clipToOutline = true
     }
 
     fun moveToGithub(view: View) {

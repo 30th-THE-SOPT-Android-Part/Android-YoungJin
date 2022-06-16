@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseFragment
@@ -19,12 +20,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         binding.lifecycleOwner = this@ProfileFragment
 
         initLayout()
+        addListeners()
     }
 
     private fun initLayout() {
         binding.profileImg.clipToOutline = true
         binding.github.movementMethod = LinkMovementMethod.getInstance()
         binding.blog.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    private fun addListeners() {
+        binding.setting.setOnClickListener {
+            findNavController().navigate(R.id.action_profie_to_settings)
+        }
     }
 
     companion object {

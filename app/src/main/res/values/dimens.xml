@@ -22,6 +22,8 @@
     <dimen name="HeightTabItem">32dp</dimen>
     <dimen name="WidthTabItem">120dp</dimen>
 
+    <dimen name="iconSizeMedium">84dp</dimen>
+
     <!-- Radius -->
     <dimen name="radiusEditText">10dp</dimen>
     <dimen name="radiusTabItem">16dp</dimen>

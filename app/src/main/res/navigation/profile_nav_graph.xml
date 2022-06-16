@@ -9,5 +9,14 @@
         android:id="@+id/profile_fragment"
         android:name="org.sopt.soptseminar.presentation.profile.ProfileFragment"
         android:label="profileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profie_to_settings"
+            app:destination="@id/settings_activity" />
+    </fragment>
+    <activity
+        android:id="@+id/settings_activity"
+        android:name="org.sopt.soptseminar.presentation.settings.SettingsActivity"
+        android:label="settingsActivity"
+        tools:layout="@layout/activity_settings" />
 </navigation>

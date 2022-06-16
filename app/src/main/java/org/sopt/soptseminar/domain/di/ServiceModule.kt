@@ -12,20 +12,20 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object ServiceBinder {
+object ServiceModule {
     private const val SIGN_BASE_URL = "http://13.124.62.236/"
     private const val GITHUB_BASE_URL = "https://api.github.com/"
 
     @Singleton
     @Provides
-    fun bindSoptService(): SoptService =
+    fun provideSoptService(): SoptService =
         Retrofit.Builder().baseUrl(SIGN_BASE_URL).addConverterFactory(
             GsonConverterFactory.create()
         ).build().create(SoptService::class.java)
 
     @Singleton
     @Provides
-    fun bindGithubService(): GithubService =
+    fun provideGithubService(): GithubService =
         Retrofit.Builder().baseUrl(GITHUB_BASE_URL).addConverterFactory(
             GsonConverterFactory.create()
         ).build().create(GithubService::class.java)
