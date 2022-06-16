@@ -8,7 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivitySettingsBinding
-import org.sopt.soptseminar.presentation.onboarding.OnboardingActivity
+import org.sopt.soptseminar.presentation.onboarding.screens.OnboardingActivity
 import org.sopt.soptseminar.util.extensions.showToast
 
 @AndroidEntryPoint

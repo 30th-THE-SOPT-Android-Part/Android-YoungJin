@@ -1,4 +1,4 @@
-package org.sopt.soptseminar.presentation.onboarding
+package org.sopt.soptseminar.presentation.onboarding.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivityOnboardingBinding
+import org.sopt.soptseminar.presentation.onboarding.OnboardingAdapter
 import org.sopt.soptseminar.presentation.sign.screens.SignInActivity
 
 @AndroidEntryPoint

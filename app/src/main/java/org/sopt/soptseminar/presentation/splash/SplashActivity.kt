@@ -13,7 +13,7 @@ import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseActivity
 import org.sopt.soptseminar.databinding.ActivitySplashBinding
 import org.sopt.soptseminar.presentation.MainActivity
-import org.sopt.soptseminar.presentation.onboarding.OnboardingActivity
+import org.sopt.soptseminar.presentation.onboarding.screens.OnboardingActivity
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {

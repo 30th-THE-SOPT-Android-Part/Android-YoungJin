@@ -1,4 +1,4 @@
-package org.sopt.soptseminar.presentation.onboarding
+package org.sopt.soptseminar.presentation.onboarding.screens
 
 import org.sopt.soptseminar.R
 import org.sopt.soptseminar.base.BaseFragment

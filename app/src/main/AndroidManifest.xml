@@ -37,7 +37,7 @@
             android:name=".presentation.github.screens.FollowerDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.onboarding.OnboardingActivity"
+            android:name=".presentation.onboarding.screens.OnboardingActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.settings.SettingsActivity"
