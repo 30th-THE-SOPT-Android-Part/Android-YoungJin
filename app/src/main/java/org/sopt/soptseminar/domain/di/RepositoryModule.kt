@@ -11,7 +11,7 @@ import org.sopt.soptseminar.domain.repositories.UserAuthRepository
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class RepositoryBinder {
+abstract class RepositoryModule {
     @Binds
     abstract fun bindGithubProfileRepository(
         defaultProfileRepository: DefaultGithubProfileRepository

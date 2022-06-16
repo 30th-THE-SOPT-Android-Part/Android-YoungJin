@@ -16,7 +16,7 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Singleton
     @Provides
-    fun bindUserDatabase(@ApplicationContext context: Context): UserDatabase {
+    fun provideUserDatabase(@ApplicationContext context: Context): UserDatabase {
         return Room.databaseBuilder(
             context,
             UserDatabase::class.java,
@@ -25,7 +25,7 @@ object DatabaseModule {
     }
 
     @Provides
-    fun bindFriendDao(userDatabase: UserDatabase): UserDao {
+    fun provideUserDao(userDatabase: UserDatabase): UserDao {
         return userDatabase.userDao()
     }
 }
