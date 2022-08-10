@@ -23,7 +23,7 @@ class RepositoryFragment : BaseFragment<FragmentRepositoryBinding>(R.layout.frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-        addListeners()
+        addObservers()
     }
 
     private fun initLayout() {
@@ -33,7 +33,7 @@ class RepositoryFragment : BaseFragment<FragmentRepositoryBinding>(R.layout.frag
         }
     }
 
-    private fun addListeners() {
+    private fun addObservers() {
         viewModel.getRepositories().observe(viewLifecycleOwner) {
             if (it == null) return@observe
             adapter.submitList(it.toMutableList())
